@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool isDashing = false;
     public float moveSpeed = 5f;
     public float rotationSpeed = 10f;
 
@@ -12,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection;
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if(isDashing) return;
         rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
     }
 
@@ -38,9 +41,6 @@ public class PlayerController : MonoBehaviour
 
         if (isMoving)
         {
-            // 이동
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
-
             // 이동 방향으로 회전
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);

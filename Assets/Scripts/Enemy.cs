@@ -6,10 +6,33 @@ public class Enemy : MonoBehaviour
 {
     public int maxHP = 30;
     private int currentHP;
+    
+    public float moveSpeed = 2f;
+    public float chaseRange = 8f;
+
+    private Transform player;
+    private Rigidbody rb;
 
     void Start()
     {
         currentHP = maxHP;
+        rb = GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+    void FixedUpdate()
+    {
+        ChasePlayer();
+    }
+    void ChasePlayer()
+    {
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if(distance <= chaseRange)
+        {
+            Debug.Log("Chasing!");
+            Vector3 direction = (player.position - transform.position).normalized;
+            rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+        }
     }
 
     public void TakeDamage(int damage)
