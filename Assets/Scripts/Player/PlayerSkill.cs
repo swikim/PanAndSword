@@ -101,7 +101,5 @@ public class Skill : MonoBehaviour
                 if(enemy != null) enemy.TakeDamage(dashDamage);
             }
         }
-        Debug.Log("이동량: " + dashDirection * dashSpeed * Time.fixedDeltaTime);
-
     }
 }

@@ -29,7 +29,6 @@ public class Enemy : MonoBehaviour
 
         if(distance <= chaseRange)
         {
-            Debug.Log("Chasing!");
             Vector3 direction = (player.position - transform.position).normalized;
             rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
         }
