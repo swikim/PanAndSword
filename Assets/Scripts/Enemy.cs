@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
     private Transform player;
     private Rigidbody rb;
 
+    [SerializeField] private List <IngredientData> dropTable;
+
     void Start()
     {
         currentHP = maxHP;
@@ -38,7 +40,6 @@ public class Enemy : MonoBehaviour
     {
         currentHP -= damage;
 
-        Debug.Log(gameObject.name + "Hit!" + currentHP);
 
         if(currentHP <= 0)
         {
@@ -48,6 +49,17 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         Debug.Log(gameObject.name + " 사망!");
+        TryDrop();
         Destroy(gameObject);
+    }
+    void TryDrop()
+    {
+        foreach(var dropTable in dropTable)
+        {
+            if(Random.value <= dropTable.dropRate)
+            {
+                IngredientPool.Instance.Get(dropTable,transform.position);
+            }
+        }
     }
 }
