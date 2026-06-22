@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
     private Vector3 moveDirection;
+
+    public float attackDamage = 10f;
+    public float maxHp = 100f;
     void Start()
     {
         animator = GetComponentInChildren<Animator>();

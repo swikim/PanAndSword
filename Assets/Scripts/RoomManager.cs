@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class RoomManager : MonoBehaviour
 {
     public static  RoomManager Instance { get; private set;} 
 
     public List<RoomController> rooms;
+    public event Action<RoomController> OnRoomCleared;
     private int clearedCount = 0;
 
     void Awake()

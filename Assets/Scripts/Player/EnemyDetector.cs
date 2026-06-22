@@ -10,10 +10,12 @@ public class EnemyDetector : MonoBehaviour
 
     private Transform currentTarget;
     private WeaponSwitcher weaponSwitcher;
+    private PlayerController playerController;
 
     void Start()
     {
         weaponSwitcher = GetComponent<WeaponSwitcher>();
+        playerController = GetComponent<PlayerController>();
         StartCoroutine(AutoAttackRoutine());   
     }
     void Update()
@@ -64,7 +66,9 @@ public class EnemyDetector : MonoBehaviour
         Enemy enemy = target.GetComponent<Enemy>();
 
         if (enemy == null) return;
-        int damage = (weaponSwitcher.currentWeapon ==WeaponType.Pan)? 15 : 8;
+        float multiplier = (weaponSwitcher.currentWeapon == WeaponType.Pan) ? 1.5f : 0.8f;
+        int damage = Mathf.RoundToInt(playerController.attackDamage * multiplier);
         enemy.TakeDamage(damage);
+        Debug.Log("Damage : "+damage);
     }
 }
