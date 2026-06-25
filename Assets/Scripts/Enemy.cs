@@ -54,11 +54,12 @@ public class Enemy : MonoBehaviour
     }
     void TryDrop()
     {
-        foreach(var dropTable in dropTable)
+        foreach(var data in dropTable)
         {
-            if(Random.value <= dropTable.dropRate)
+            if(Random.value <= data.dropRate)
             {
-                IngredientPool.Instance.Get(dropTable,transform.position);
+                IngredientPool.Instance.Get(data,transform.position);
+                Debug.Log(data.name);
             }
         }
     }

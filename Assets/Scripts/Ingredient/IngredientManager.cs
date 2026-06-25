@@ -5,10 +5,9 @@ using UnityEngine;
 public class IngredientManager : MonoBehaviour
 {
     public static IngredientManager Instance { get; private set; }
-    private const int UpgradeThreshold = 5;
-    public IngredientData ingredientData;
-    private PlayerController playerController;
-    private Dictionary<IngredientType,int> _counts;
+    private const int UpgradeThreshold = 2;
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private Skill skill;
 
 
     void Awake()
@@ -22,20 +21,32 @@ public class IngredientManager : MonoBehaviour
     }
     void Start()
     {
-        _counts = new Dictionary<IngredientType, int>
-        {
-            { IngredientType.Meat,      0 },
-            { IngredientType.Vegetable, 0 },
-            { IngredientType.Spice,     0 }
-        };
-        playerController = playerController.GetComponent<PlayerController>();
     }
     public void AddIngredient(IngredientData data)
     {
-        _counts[data.type]++;
-        Debug.Log($"[Manager] {data.type} {_counts[data.type]}/{UpgradeThreshold}");
+            switch (data.type)
+        {
+            case IngredientType.Meat:
+                GameData.ingredientData.meatCount++;
+                break;
+            case IngredientType.Vegetable:
+                GameData.ingredientData.vegetableCount++;
+                break;
+            case IngredientType.Spice:
+                GameData.ingredientData.spiceCount++;
+                break;
+        }
+        int currentCount = data.type switch
+        {
+            IngredientType.Meat      => GameData.ingredientData.meatCount,
+            IngredientType.Vegetable => GameData.ingredientData.vegetableCount,
+            IngredientType.Spice     => GameData.ingredientData.spiceCount,
+            _                        => 0
+        };
+
+        Debug.Log($"[Manager] {data.type} {currentCount}/{UpgradeThreshold}");
         
-        if(_counts[data.type] >= UpgradeThreshold)
+        if(GameData.ingredientData.meatCount >= UpgradeThreshold)
         {
             Debug.Log("레시피를 사용할 수 있습니다.");
             //레시피 데이터에 bool 값을 하나 넣어서 사용 가능한지 체크

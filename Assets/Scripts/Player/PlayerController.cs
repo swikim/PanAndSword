@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Vector3 moveDirection;
 
-    public float attackDamage = 10f;
-    public float maxHp = 100f;
+    public float attackDamage;
+    public float maxHp;
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
+        attackDamage = GameData.playerStatus.attackDamage;
+        maxHp = GameData.playerStatus.maxHp;
     }
 
     void Update()
