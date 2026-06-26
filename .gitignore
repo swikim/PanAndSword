@@ -75,6 +75,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /Assets/Chef Kit/
 /Assets/Chef Kit.meta
+Assets/TextMesh Pro
 
 # OS 관련 파일 
 .DS_Store
