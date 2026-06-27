@@ -15,9 +15,19 @@ public class IngredientSaveData
     public int vegetableCount;
     public int spiceCount;
 }
+[System.Serializable]
+public class CookedFoodData
+{
+    public int bulgogi;    // 불고기
+    public int salad;      // 샐러드
+    public int steak;      // 스테이크
+    public int bibimbap;   // 비빔밥
+    public int spicySoup;  // 매운탕
+}
 public static class GameData 
 {
     public static PlayerStatus playerStatus = new PlayerStatus();
     public static IngredientSaveData ingredientData = new IngredientSaveData();
+    public static CookedFoodData cookData = new CookedFoodData();
     
 }

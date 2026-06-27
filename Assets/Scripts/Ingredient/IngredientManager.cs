@@ -24,7 +24,7 @@ public class IngredientManager : MonoBehaviour
     }
     public void AddIngredient(IngredientData data)
     {
-            switch (data.type)
+        switch (data.type)
         {
             case IngredientType.Meat:
                 GameData.ingredientData.meatCount++;
@@ -59,6 +59,34 @@ public class IngredientManager : MonoBehaviour
             case SkillEffect.FlameOnAttack:
                 playerController.attackDamage += 3;
                 break;
+        }
+    }
+    public Dictionary<IngredientType, int> GetCounts()
+    {
+        return new Dictionary<IngredientType, int>
+        {
+            { IngredientType.Meat, GameData.ingredientData.meatCount},
+            { IngredientType.Vegetable, GameData.ingredientData.vegetableCount},
+            { IngredientType.Spice, GameData.ingredientData.spiceCount},
+        };
+    }
+
+    public void ConsumeIngredients(List<IngredientRequirement> requirements)
+    {
+        foreach(var req in requirements)
+        {
+            switch (req.type)
+            {
+                case IngredientType.Meat:
+                    GameData.ingredientData.meatCount -= req.count;
+                    break;
+                case IngredientType.Vegetable:
+                GameData.ingredientData.vegetableCount -= req.count;
+                break;
+                case IngredientType.Spice:
+                    GameData.ingredientData.spiceCount -= req.count;
+                    break;
+            }
         }
     }
 }

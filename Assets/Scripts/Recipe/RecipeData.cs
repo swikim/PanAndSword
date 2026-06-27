@@ -23,7 +23,7 @@ public class RecipeData : ScriptableObject
     public string recipeName;
     public string description;
 
-    public List<IngredientRequirement> allRecipe;
+    public List<IngredientRequirement> requirements;
     public SkillEffect skillEffect;
 
 

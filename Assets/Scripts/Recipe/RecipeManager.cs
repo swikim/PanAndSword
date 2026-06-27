@@ -23,6 +23,27 @@ public class RecipeManager : MonoBehaviour
     {
        RoomManager.Instance.OnRoomCleared += OnRoomCleared;
     }
+    public void Cook(RecipeData data)
+    {
+        Dictionary<IngredientType, int> count = IngredientManager.Instance.GetCounts();
+        if (!CanCraft(data, count))
+        {
+            Debug.Log("재료 부족");
+            return;
+        }
+    }
+    bool CanCraft(RecipeData data, Dictionary<IngredientType, int> count)
+    {
+        foreach(var ingredient in data.requirements)
+        {
+            int have = count[ingredient.type];
+            if(have < ingredient.count)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     void OnRoomCleared(RoomController clearedRoom)
     {
        
