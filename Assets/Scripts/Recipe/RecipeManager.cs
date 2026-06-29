@@ -25,13 +25,35 @@ public class RecipeManager : MonoBehaviour
     }
     public void Cook(RecipeData data)
     {
-        Dictionary<IngredientType, int> count = IngredientManager.Instance.GetCounts();
+        Dictionary<IngredientType, int> count = IngredientManager.Instance.GetCounts(); //현재 재료 개수
         if (!CanCraft(data, count))
         {
             Debug.Log("재료 부족");
             return;
         }
+        IngredientManager.Instance.ConsumeIngredients(data.requirements);
+
+        switch (data.skillEffect)
+        {
+            case SkillEffect.FlameOnAttack :
+                GameData.cookData.bulgogi++;
+                break;
+            case SkillEffect.HealOnMove :
+                GameData.cookData.salad++;
+                break;
+            case SkillEffect.AttackBoostPercent :
+                GameData.cookData.steak++;
+                break;
+            case SkillEffect.AllStatBoost :
+                GameData.cookData.bibimbap++;
+                break;
+            case SkillEffect.CooldownReduction :
+                GameData.cookData.spicySoup++;
+                break;
+        }
     }
+    
+   
     bool CanCraft(RecipeData data, Dictionary<IngredientType, int> count)
     {
         foreach(var ingredient in data.requirements)
