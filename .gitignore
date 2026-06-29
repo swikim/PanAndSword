@@ -76,6 +76,7 @@ crashlytics-build.properties
 /Assets/Chef Kit/
 /Assets/Chef Kit.meta
 Assets/TextMesh Pro
+Assets/Sprites
 
 # OS 관련 파일 
 .DS_Store
