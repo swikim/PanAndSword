@@ -23,10 +23,13 @@ public class LobyManager : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button upgradeButton;
     [SerializeField] private Button recipeButton;
+    [SerializeField] private Button upgradeBackButton;
+    [SerializeField] private Button recipeBackButton;
+    [SerializeField] private UpgradePanelUI upgradePanelUI;
 
-    //[Header("팝업")]
-    //[SerializeField] private GameObject upgradePanel;
-    //[SerializeField] private GameObject recipePanel;
+    [Header("패널")]
+    [SerializeField] private GameObject upgradePanel;
+    [SerializeField] private GameObject recipePanel;
 
     void Start()
     {
@@ -35,6 +38,8 @@ public class LobyManager : MonoBehaviour
         startButton.onClick.AddListener(OnStartButton);
         upgradeButton.onClick.AddListener(OnUpgradeButton);
         recipeButton.onClick.AddListener(OnRecipeButton);
+        upgradeBackButton.onClick.AddListener(() => upgradePanel.SetActive(false));
+        recipeBackButton.onClick.AddListener(() => recipePanel.SetActive(false));
     }
 
     void UpdateUI()
@@ -51,16 +56,12 @@ public class LobyManager : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
     }
-
-    void OnUpgradeButton()
-    {
-        //upgradePanel.SetActive(true);
-        Debug.Log("강화 팝업 (미구현)");
-    }
-
     void OnRecipeButton()
     {
-        //recipePanel.SetActive(true);
-        Debug.Log("레시피 팝업 (미구현)");
+        recipePanel.SetActive(true);
+    }
+    void OnUpgradeButton()
+    {
+        upgradePanel.SetActive(true);
     }
 }
