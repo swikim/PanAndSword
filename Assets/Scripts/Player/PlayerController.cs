@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool isDead = false;
     public bool isDashing = false;
     public float moveSpeed = 5f;
     public float rotationSpeed = 10f;
@@ -25,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (isDead) return;
         Move();
     }
     void FixedUpdate()
@@ -50,5 +52,19 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+    }
+    public void PlayAttackAnimation(WeaponType type)
+    {
+        if (isDead) return;
+        if(type == WeaponType.Pan)
+        {
+            animator.SetTrigger("Attack");
+        }
+        else
+            animator.SetTrigger("SwordAttack");
+    }
+    public void TriggerAnimation(string triggerName)
+    {
+        animator.SetTrigger(triggerName);
     }
 }

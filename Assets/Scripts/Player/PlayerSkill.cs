@@ -13,12 +13,14 @@ public class Skill : MonoBehaviour
 
     private WeaponSwitcher weaponSwitcher;
     private PlayerController playerController;
+    private Animator animator;
     private Rigidbody rb;
 
     void Start()
     {
         weaponSwitcher = GetComponent<WeaponSwitcher>(); 
-        playerController = GetComponent<PlayerController>();  
+        playerController = GetComponent<PlayerController>();
+        animator = GetComponentInChildren<Animator>();  
         rb = GetComponent<Rigidbody>();
     }
 
@@ -32,6 +34,7 @@ public class Skill : MonoBehaviour
 
     void TryUseSkill()
     {
+        if (playerController.isDead) return;
         if(Time.time - lastSkillTime < skillCooldown)
         {
             float remaining = skillCooldown - (Time.time - lastSkillTime);
@@ -54,6 +57,7 @@ public class Skill : MonoBehaviour
     void OilSplash()
     {
         Debug.Log("🍳 Oil Toss 발동! 주변 적에게 광역 데미지");
+        animator.SetTrigger("OilSplash");
 
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, 3f);
 
@@ -72,6 +76,7 @@ public class Skill : MonoBehaviour
     void SwordSlash()
     {
         Debug.Log("⚔️ Dash Slash 발동! 돌진 베기");
+        animator.SetTrigger("SwordSlash");
         StartCoroutine(DashRoutine());
     }
 

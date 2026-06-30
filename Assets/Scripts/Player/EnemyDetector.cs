@@ -69,6 +69,7 @@ public class EnemyDetector : MonoBehaviour
         float multiplier = (weaponSwitcher.currentWeapon == WeaponType.Pan) ? 1.5f : 0.8f;
         int damage = Mathf.RoundToInt(playerController.attackDamage * multiplier);
         enemy.TakeDamage(damage);
+        playerController.PlayAttackAnimation(weaponSwitcher.currentWeapon);
         Debug.Log("Damage : "+damage);
     }
 }
