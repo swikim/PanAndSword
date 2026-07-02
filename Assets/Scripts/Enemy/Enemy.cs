@@ -12,14 +12,15 @@ public class Enemy : MonoBehaviour,IDamageable
 
     private Transform player;
     private Rigidbody rb;
-
     [SerializeField] private List <IngredientData> dropTable;
+    public event System.Action<float,float> OnHpChanged;
 
     void Start()
     {
         currentHP = maxHP;
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        OnHpChanged?.Invoke(currentHP,maxHP);
     }
     void FixedUpdate()
     {
@@ -39,7 +40,7 @@ public class Enemy : MonoBehaviour,IDamageable
     public void TakeDamage(float damage)
     {
         currentHP -= damage;
-
+        OnHpChanged?.Invoke(currentHP,maxHP);
 
         if(currentHP <= 0)
         {

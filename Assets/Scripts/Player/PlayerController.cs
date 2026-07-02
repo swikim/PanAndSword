@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour,IDamageable
     public event Action OnPlayerDied;
     
     
-    void Start()
+    void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour,IDamageable
 
         CurrentHp = Mathf.Max(0f, CurrentHp - damage);
         OnHealthChanged?.Invoke(CurrentHp, maxHp);
+        Debug.Log(CurrentHp+"  "+ maxHp);
 
         if(CurrentHp <= 0)
         {
