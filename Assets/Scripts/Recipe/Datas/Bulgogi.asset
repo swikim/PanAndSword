@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f1763c51ed114823ab48c2f52a34a4a, type: 3}
   m_Name: Bulgogi
   m_EditorClassIdentifier: 
-  recipeName: Bulgogi
-  description: "\uBD88\uACE0\uAE30"
-  allRecipe:
+  recipeName: "\uBD88\uACE0\uAE30"
+  description: "\uACF5\uACA9\uB825 + 10"
+  requirements:
   - type: 0
-    count: 2
+    count: 3
   - type: 1
     count: 1
   - type: 2

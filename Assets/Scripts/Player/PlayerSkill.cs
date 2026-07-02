@@ -10,6 +10,9 @@ public class Skill : MonoBehaviour
     public float dashSpeed = 15f;
     public float dashDuration = 0.2f;
     public int dashDamage = 25;
+    public float oilSplashDamage;
+
+    [SerializeField] private LayerMask enemyLayer;
 
     private WeaponSwitcher weaponSwitcher;
     private PlayerController playerController;
@@ -34,7 +37,7 @@ public class Skill : MonoBehaviour
 
     void TryUseSkill()
     {
-        if (playerController.isDead) return;
+        if (playerController.IsDead) return;
         if(Time.time - lastSkillTime < skillCooldown)
         {
             float remaining = skillCooldown - (Time.time - lastSkillTime);
@@ -59,17 +62,14 @@ public class Skill : MonoBehaviour
         Debug.Log("🍳 Oil Toss 발동! 주변 적에게 광역 데미지");
         animator.SetTrigger("OilSplash");
 
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, 3f);
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, 3f,enemyLayer);
 
+        oilSplashDamage = GameData.playerStatus.attackDamage * 0.8f;
         foreach (Collider col in hitEnemies)
         {
-            if (col.CompareTag("Enemy"))
+            if(col.TryGetComponent<IDamageable>(out var target))
             {
-                Enemy enemy = col.GetComponent<Enemy>();
-                if (enemy != null)
-                {
-                    enemy.TakeDamage(20);
-                }
+                target.TakeDamage(oilSplashDamage);
             }
         }
     }
@@ -97,13 +97,13 @@ public class Skill : MonoBehaviour
 
         playerController.isDashing = false;
 
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, 1.5f);
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, 1.5f, enemyLayer);
+
         foreach(Collider col in hitEnemies)
         {
-            if (col.CompareTag("Enemy"))
+            if(col.TryGetComponent<IDamageable>(out var target))
             {
-                Enemy enemy = col.GetComponent<Enemy>();
-                if(enemy != null) enemy.TakeDamage(dashDamage);
+                target.TakeDamage(dashDamage);
             }
         }
     }

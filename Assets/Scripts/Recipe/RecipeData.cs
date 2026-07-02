@@ -26,5 +26,15 @@ public class RecipeData : ScriptableObject
     public List<IngredientRequirement> requirements;
     public SkillEffect skillEffect;
 
-
+    private void OnValidate()
+    {
+        var seen = new HashSet<IngredientType>();
+        foreach (var req in requirements)
+        {
+            if (!seen.Add(req.type))
+            {
+                Debug.LogWarning($"[{recipeName}] {req.type} 타입이 중복 등록되어 있습니다!");
+            }
+        }
+    }
 }

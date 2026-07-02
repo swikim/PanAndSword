@@ -8772,6 +8772,22 @@ MonoBehaviour:
     countText: {fileID: 1130912424}
     eatButton: {fileID: 375169100}
     canvasGroup: {fileID: 1345562375}
+  - recipeData: {fileID: 11400000, guid: 2fa5e830fe66d4b058289c376dedbb3d, type: 2}
+    countText: {fileID: 324767923}
+    eatButton: {fileID: 436095719}
+    canvasGroup: {fileID: 508656440}
+  - recipeData: {fileID: 11400000, guid: 03a0c27a990eb459280722a2d327b1cd, type: 2}
+    countText: {fileID: 1228608908}
+    eatButton: {fileID: 1631219780}
+    canvasGroup: {fileID: 2105827168}
+  - recipeData: {fileID: 11400000, guid: b7dcca272c4c846a08e48810f43e1b6c, type: 2}
+    countText: {fileID: 438230605}
+    eatButton: {fileID: 1301770664}
+    canvasGroup: {fileID: 1978554199}
+  - recipeData: {fileID: 11400000, guid: a6cfbdc2abb39429b864f370072d6f72, type: 2}
+    countText: {fileID: 387097851}
+    eatButton: {fileID: 476381685}
+    canvasGroup: {fileID: 246025763}
 --- !u!1 &1092637223
 GameObject:
   m_ObjectHideFlags: 0

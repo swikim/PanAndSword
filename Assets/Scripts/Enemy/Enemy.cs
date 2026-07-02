@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour,IDamageable
 {
-    public int maxHP = 30;
-    private int currentHP;
+    public float maxHP = 30;
+    private float currentHP;
     
     public float moveSpeed = 2f;
     public float chaseRange = 8f;
@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHP -= damage;
 

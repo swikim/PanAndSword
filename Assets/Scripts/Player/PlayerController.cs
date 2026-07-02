@@ -1,11 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour,IDamageable
 {
-    public bool isDead = false;
     public bool isDashing = false;
     public float moveSpeed = 5f;
     public float rotationSpeed = 10f;
@@ -15,18 +15,31 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection;
 
     public float attackDamage;
-    public float maxHp;
+
+    [Header("Stats")]
+    [SerializeField] private float maxHp = 100f;
+
+    public float CurrentHp { get; private set; }
+    public float MaxHp => maxHp;
+    public bool IsDead { get; private set; }
+
+    public event Action<float, float> OnHealthChanged; // current, max
+    public event Action OnPlayerDied;
+    
+    
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
         attackDamage = GameData.playerStatus.attackDamage;
         maxHp = GameData.playerStatus.maxHp;
+        CurrentHp = maxHp;
+        IsDead = false;
     }
 
     void Update()
     {
-        if (isDead) return;
+        if (IsDead) return;
         Move();
     }
     void FixedUpdate()
@@ -55,7 +68,7 @@ public class PlayerController : MonoBehaviour
     }
     public void PlayAttackAnimation(WeaponType type)
     {
-        if (isDead) return;
+        if (IsDead) return;
         if(type == WeaponType.Pan)
         {
             animator.SetTrigger("Attack");
@@ -66,5 +79,23 @@ public class PlayerController : MonoBehaviour
     public void TriggerAnimation(string triggerName)
     {
         animator.SetTrigger(triggerName);
+    }
+    public void TakeDamage(float damage)
+    {
+        if(IsDead) return;
+
+        CurrentHp = Mathf.Max(0f, CurrentHp - damage);
+        OnHealthChanged?.Invoke(CurrentHp, maxHp);
+
+        if(CurrentHp <= 0)
+        {
+            Die();
+        }
+    }
+    private void Die()
+    {
+        IsDead = true;
+        TriggerAnimation("Die");
+        OnPlayerDied?.Invoke();
     }
 }
