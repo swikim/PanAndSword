@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58f734233eff14d0ebf8401e2d290fb8, type: 3}
-  m_Name: Meat
+  m_Name: Spice
   m_EditorClassIdentifier: 
-  ingredientName: "\uACE0\uAE30"
-  sprite: {fileID: -852741761, guid: 886ce9e9eb4e94fae99193f2e67255be, type: 3}
-  dropRate: 1
-  type: 0
+  ingredientName: "\uD5A5\uC2E0\uB8CC"
+  sprite: {fileID: -1641216994, guid: 886ce9e9eb4e94fae99193f2e67255be, type: 3}
+  dropRate: 0.941
+  type: 2

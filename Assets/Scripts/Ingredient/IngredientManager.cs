@@ -75,7 +75,7 @@ public class IngredientManager : MonoBehaviour
     {
         foreach(var req in requirements)
         {
-            switch (req.type)
+            switch (req.ingredientData.type)
             {
                 case IngredientType.Meat:
                     GameData.ingredientData.meatCount -= req.count;

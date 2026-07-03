@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f734233eff14d0ebf8401e2d290fb8, type: 3}
   m_Name: Vegetable
   m_EditorClassIdentifier: 
-  ingredientName: Vegetable
-  sprite: {fileID: 21300000, guid: a5e9481cb826a4bd49cabe24bf127c56, type: 3}
+  ingredientName: "\uC57C\uCC44"
+  sprite: {fileID: 112568181, guid: 886ce9e9eb4e94fae99193f2e67255be, type: 3}
   dropRate: 1
   type: 1

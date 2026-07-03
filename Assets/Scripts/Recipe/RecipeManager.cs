@@ -54,11 +54,11 @@ public class RecipeManager : MonoBehaviour
     }
     
    
-    bool CanCraft(RecipeData data, Dictionary<IngredientType, int> count)
+    public bool CanCraft(RecipeData data, Dictionary<IngredientType, int> count)
     {
         foreach(var ingredient in data.requirements)
         {
-            int have = count[ingredient.type];
+            int have = count[ingredient.ingredientData.type];
             if(have < ingredient.count)
             {
                 return false;

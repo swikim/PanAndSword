@@ -14,7 +14,7 @@ public enum SkillEffect
 [System.Serializable]
 public class IngredientRequirement
 {
-    public IngredientType type;
+    public IngredientData ingredientData;
     public int count;
 }
 [CreateAssetMenu(menuName = "PanAndSword/RecipeData")]
@@ -31,9 +31,9 @@ public class RecipeData : ScriptableObject
         var seen = new HashSet<IngredientType>();
         foreach (var req in requirements)
         {
-            if (!seen.Add(req.type))
+            if (!seen.Add(req.ingredientData.type))
             {
-                Debug.LogWarning($"[{recipeName}] {req.type} 타입이 중복 등록되어 있습니다!");
+                Debug.LogWarning($"[{recipeName}] {req.ingredientData.type} 타입이 중복 등록되어 있습니다!");
             }
         }
     }
