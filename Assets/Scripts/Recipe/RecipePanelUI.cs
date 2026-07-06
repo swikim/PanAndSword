@@ -18,6 +18,7 @@ public class RecipeCardUI
     public List<IngredientSlotUI> slotUIList;
     public Button cookButton;
     public CanvasGroup canvasGroup;
+    public TMP_Text nameText;
 
 }
 public class RecipePanelUI : MonoBehaviour
@@ -29,17 +30,37 @@ public class RecipePanelUI : MonoBehaviour
         InitialCards();
         AutoLinkSlots();
     }
-    
+
     void AutoLinkSlots()
     {
         foreach (RecipeCardUI card in recipeCardUIs)
         {
+            if (card.nameText == null)
+            {
+                Transform nameTextTransform = card.canvasGroup.transform.Find("NameText");
+                if (nameTextTransform != null)
+                {
+                    card.nameText = nameTextTransform.GetComponent<TMP_Text>();
+                }
+                else
+                {
+                    Debug.LogWarning($"NameText를 못 찾음: {card.canvasGroup.name}");
+                }
+            }
             foreach (IngredientSlotUI slot in card.slotUIList)
             {
                 if (slot.slotRoot == null)
                 {
                     Debug.LogWarning($"slotRoot가 비어있음: {card.recipeData?.recipeName}");
                     continue;
+                }
+
+                // 검증: icon이 이미 채워져 있어도, 진짜 내 자식이 맞는지 확인
+                if (slot.icon != null && slot.icon.transform.parent != slot.slotRoot.transform)
+                {
+                    Debug.LogWarning($"[{card.recipeData?.recipeName}] icon이 잘못된 슬롯을 참조 중! " +
+                        $"기대: {slot.slotRoot.name}(InstanceID:{slot.slotRoot.GetInstanceID()})의 자식, " +
+                        $"실제 부모: {slot.icon.transform.parent.name}(InstanceID:{slot.icon.transform.parent.GetInstanceID()})");
                 }
 
                 if (slot.icon == null)
@@ -51,6 +72,7 @@ public class RecipePanelUI : MonoBehaviour
                         Debug.LogWarning($"Icon을 못 찾음: {slot.slotRoot.name}");
                 }
 
+                // count도 동일하게 검증 로직 추가 가능
                 if (slot.count == null)
                 {
                     Transform countTransform = slot.slotRoot.transform.Find("CountText");
@@ -84,12 +106,14 @@ public class RecipePanelUI : MonoBehaviour
         foreach(RecipeCardUI card in recipeCardUIs)
         {
             RecipeData RD = card.recipeData;
+            card.nameText.text = RD.recipeName;
             for(int i = 0; i < card.slotUIList.Count; i++)
             {
                 if (i < RD.requirements.Count)
                 {
                     card.slotUIList[i].count.text = RD.requirements[i].count.ToString();
                     card.slotUIList[i].icon.sprite = RD.requirements[i].ingredientData.sprite;
+Debug.Log($"{card.recipeData.recipeName} - 슬롯{i}: sprite = {RD.requirements[i].ingredientData.sprite}");
                     card.slotUIList[i].slotRoot.SetActive(true);
                 }
                 else

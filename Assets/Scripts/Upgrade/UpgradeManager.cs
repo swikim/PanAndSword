@@ -20,6 +20,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
         }
 
         ApplyStat(recipe);
+        SaveManager.Instance.SaveGameData();
     }
     public bool HasFood(RecipeData recipe)
     {

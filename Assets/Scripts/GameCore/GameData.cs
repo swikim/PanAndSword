@@ -24,6 +24,13 @@ public class CookedFoodData
     public int bibimbap;   // 비빔밥
     public int spicySoup;  // 매운탕
 }
+[System.Serializable]
+public class SaveData
+{
+    public PlayerStatus playerStatus;
+    public IngredientSaveData ingredientData;
+    public CookedFoodData cookData;
+}
 public static class GameData 
 {
     public static PlayerStatus playerStatus = new PlayerStatus();

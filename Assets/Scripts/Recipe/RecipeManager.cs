@@ -21,7 +21,10 @@ public class RecipeManager : MonoBehaviour
 
     void Start()
     {
-       RoomManager.Instance.OnRoomCleared += OnRoomCleared;
+       if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.OnRoomCleared += OnRoomCleared;
+        }
     }
     public void Cook(RecipeData data)
     {
@@ -51,6 +54,7 @@ public class RecipeManager : MonoBehaviour
                 GameData.cookData.spicySoup++;
                 break;
         }
+        SaveManager.Instance.SaveGameData();
     }
     
    
@@ -72,6 +76,9 @@ public class RecipeManager : MonoBehaviour
     }
     void OnDestroy()
     {
-        RoomManager.Instance.OnRoomCleared -= OnRoomCleared;
+        if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.OnRoomCleared -= OnRoomCleared;
+        }
     }
 }

@@ -11,6 +11,7 @@ public class FoodCardUI
     public TMP_Text countText;
     public Button eatButton;
     public CanvasGroup canvasGroup;
+    public TMP_Text nameText;
 }
 public class UpgradePanelUI : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class UpgradePanelUI : MonoBehaviour
         }
     }
 
+
     void OnEnable()
     {
         UpdateUI(); // 패널 열릴 때마다 최신 데이터 반영
@@ -43,8 +45,9 @@ public class UpgradePanelUI : MonoBehaviour
             int count = GetCount(fo.recipeData);
             bool has = count >= 1;
 
+            fo.nameText.text = fo.recipeData.recipeName;
             fo.countText.text = $"x{count}";
-            fo.canvasGroup.alpha = has ? 1f : 0.4f;
+            fo.canvasGroup.alpha = has ? 1f : 0.6f;
             fo.canvasGroup.interactable = has;
         }
     }
