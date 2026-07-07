@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour,IDamageable
 {
+    [SerializeField] private Joystick joystick;
+    private bool isUsingJoystick = true; 
     public bool isDashing = false;
     public float moveSpeed = 5f;
     public float rotationSpeed = 10f;
@@ -40,7 +42,10 @@ public class PlayerController : MonoBehaviour,IDamageable
     void Update()
     {
         if (IsDead) return;
-        Move();
+        if(isUsingJoystick)
+            MoveWithJoystick();
+        else
+            Move();
     }
     void FixedUpdate()
     {
@@ -66,6 +71,22 @@ public class PlayerController : MonoBehaviour,IDamageable
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
+    void MoveWithJoystick()
+    {
+        moveDirection = new Vector3(joystick.direction.x, 0f, joystick.direction.y).normalized;
+        Debug.Log(moveDirection);
+
+        bool isMoving = moveDirection.magnitude > 0.1f;
+        animator.SetBool("IsMoving", isMoving);
+
+        if (isMoving)
+        {
+            // 이동 방향으로 회전
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+
     public void PlayAttackAnimation(WeaponType type)
     {
         if (IsDead) return;
