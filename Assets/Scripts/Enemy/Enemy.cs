@@ -5,17 +5,19 @@ using UnityEngine;
 public class Enemy : MonoBehaviour,IDamageable
 {
     public float maxHP = 30;
-    private float currentHP;
+    protected float currentHP;
     
-    public float moveSpeed = 2f;
-    public float chaseRange = 8f;
+    protected float moveSpeed = 2f;
+    protected float chaseRange = 8f;
+    protected float attackRange = 2f;
+    public float attackCooldown = 5f;
 
-    private Transform player;
-    private Rigidbody rb;
+    protected Transform player;
+    protected Rigidbody rb;
     [SerializeField] private List <IngredientData> dropTable;
     public event System.Action<float,float> OnHpChanged;
 
-    void Start()
+    protected virtual void Start()
     {
         currentHP = maxHP;
         rb = GetComponent<Rigidbody>();
@@ -26,7 +28,7 @@ public class Enemy : MonoBehaviour,IDamageable
     {
         ChasePlayer();
     }
-    void ChasePlayer()
+    protected virtual void ChasePlayer()
     {
         float distance = Vector3.Distance(transform.position, player.position);
 
@@ -37,7 +39,7 @@ public class Enemy : MonoBehaviour,IDamageable
         }
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         currentHP -= damage;
         OnHpChanged?.Invoke(currentHP,maxHP);
@@ -47,13 +49,13 @@ public class Enemy : MonoBehaviour,IDamageable
             Die();
         }
     }
-    void Die()
+    protected virtual void Die()
     {
         Debug.Log(gameObject.name + " 사망!");
         TryDrop();
         Destroy(gameObject);
     }
-    void TryDrop()
+    protected virtual void TryDrop()
     {
         foreach(var data in dropTable)
         {
