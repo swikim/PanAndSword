@@ -579,7 +579,7 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 10
   attackDamage: 10
-  maxHp: 100
+  maxHp: 10
 --- !u!114 &166186935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1767,8 +1767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 30
-  moveSpeed: 2
-  chaseRange: 8
+  attackCooldown: 5
   dropTable:
   - {fileID: 11400000, guid: 0e01d02440a7f4d289aaf79cd2c5b805, type: 2}
 --- !u!65 &907402293
@@ -3127,8 +3126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 30
-  moveSpeed: 2
-  chaseRange: 8
+  attackCooldown: 5
   dropTable:
   - {fileID: 11400000, guid: 0e01d02440a7f4d289aaf79cd2c5b805, type: 2}
 --- !u!65 &1659722836
@@ -3875,8 +3873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 30
-  moveSpeed: 2
-  chaseRange: 8
+  attackCooldown: 5
   dropTable:
   - {fileID: 11400000, guid: 0e01d02440a7f4d289aaf79cd2c5b805, type: 2}
 --- !u!65 &2057484060
@@ -4132,6 +4129,10 @@ PrefabInstance:
     - target: {fileID: 3437161717244103639, guid: 5f851feea82eb41f5a3b180c06b84d42, type: 3}
       propertyPath: m_Name
       value: Enemy_Temp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5485464419935352889, guid: 5f851feea82eb41f5a3b180c06b84d42, type: 3}
+      propertyPath: maxHP
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 7575459451331005700, guid: 5f851feea82eb41f5a3b180c06b84d42, type: 3}
       propertyPath: m_AnchorMax.y

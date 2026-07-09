@@ -44,7 +44,7 @@ public class RecipeManager : MonoBehaviour
             case SkillEffect.HealOnMove :
                 GameData.cookData.salad++;
                 break;
-            case SkillEffect.AttackBoostPercent :
+            case SkillEffect.Revive :
                 GameData.cookData.steak++;
                 break;
             case SkillEffect.AllStatBoost :

@@ -58,7 +58,7 @@ public class UpgradePanelUI : MonoBehaviour
         {
             SkillEffect.FlameOnAttack      => GameData.cookData.bulgogi,
             SkillEffect.HealOnMove         => GameData.cookData.salad,
-            SkillEffect.AttackBoostPercent => GameData.cookData.steak,
+            SkillEffect.Revive => GameData.cookData.steak,
             SkillEffect.AllStatBoost       => GameData.cookData.bibimbap,
             SkillEffect.CooldownReduction  => GameData.cookData.spicySoup,
             _                              => 0

@@ -14,7 +14,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
         {
             case SkillEffect.FlameOnAttack:     GameData.cookData.bulgogi--;   break;
             case SkillEffect.HealOnMove:        GameData.cookData.salad--;     break;
-            case SkillEffect.AttackBoostPercent: GameData.cookData.steak--;    break;
+            case SkillEffect.Revive: GameData.cookData.steak--;    break;
             case SkillEffect.AllStatBoost:      GameData.cookData.bibimbap--;  break;
             case SkillEffect.CooldownReduction: GameData.cookData.spicySoup--; break;
         }
@@ -28,7 +28,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
         {
             SkillEffect.FlameOnAttack     => GameData.cookData.bulgogi >= 1,
             SkillEffect.HealOnMove        => GameData.cookData.salad >= 1,
-            SkillEffect.AttackBoostPercent => GameData.cookData.steak >= 1,
+            SkillEffect.Revive => GameData.cookData.steak >= 1,
             SkillEffect.AllStatBoost      => GameData.cookData.bibimbap >= 1,
             SkillEffect.CooldownReduction  => GameData.cookData.spicySoup >= 1,
             _                             => false
@@ -44,8 +44,8 @@ public class UpgradeManager : Singleton<UpgradeManager>
             case SkillEffect.HealOnMove:
                 Debug.Log("재생력 ++ (추후 구현)");
                 break;
-            case SkillEffect.AttackBoostPercent:
-                GameData.playerStatus.attackDamage *= 1.1f;
+            case SkillEffect.Revive:
+                GameData.playerStatus.hasRevive = true;
                 break;
             case SkillEffect.AllStatBoost:
                 GameData.playerStatus.attackDamage += 10;

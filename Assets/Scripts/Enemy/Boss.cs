@@ -11,7 +11,7 @@ public class Boss : Enemy
     protected override void Start()
     {
         base.Start(); 
-        
+        base.attackCooldown = 3f;
         attackPatterns = new List<IAttackPattern>
         {
             new MeleeAttackPattern(),

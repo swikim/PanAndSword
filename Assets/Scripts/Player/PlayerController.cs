@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour,IDamageable
     void MoveWithJoystick()
     {
         moveDirection = new Vector3(joystick.direction.x, 0f, joystick.direction.y).normalized;
-        Debug.Log(moveDirection);
+
 
         bool isMoving = moveDirection.magnitude > 0.1f;
         animator.SetBool("IsMoving", isMoving);
@@ -116,8 +116,30 @@ public class PlayerController : MonoBehaviour,IDamageable
     }
     private void Die()
     {
+        if(GameData.playerStatus.hasRevive)
+        {
+            GameData.playerStatus.hasRevive = false;
+            StartCoroutine(ReviveRoutine());
+            return;
+        }
         IsDead = true;
-        TriggerAnimation("Die");
+        TriggerAnimation("Death");
         OnPlayerDied?.Invoke();
+    }
+
+    private IEnumerator ReviveRoutine()
+    {
+        IsDead = true;
+        TriggerAnimation("Death");
+        
+        yield return new WaitForSeconds(1.5f); 
+        
+        // TriggerAnimation("GetUp");
+        // yield return new WaitForSeconds(1f);
+        
+        IsDead = false;
+        CurrentHp = maxHp;
+        OnHealthChanged?.Invoke(CurrentHp, maxHp);
+        Debug.Log("부활!");
     }
 }
