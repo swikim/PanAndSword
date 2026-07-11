@@ -2,5 +2,6 @@ using UnityEngine;
 
 public interface IAttackPattern
 {
-     void Execute(Transform target);
+     bool IsRunning { get; }
+     void Execute(Transform target,MonoBehaviour owner);
 }

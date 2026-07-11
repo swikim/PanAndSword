@@ -1,26 +1,34 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Boss : Enemy
 {
-    [SerializeField] private float attackCooldown = 3f;
     private List<IAttackPattern> attackPatterns;
     private float lastAttackTime;
     [SerializeField] private float judgeRange = 10f;
+    [SerializeField] public float dashSpeed = 10f;
+    [SerializeField] public float dashDuration = 0.5f;
+    [SerializeField] public float dashDamage = 20f;
+    [SerializeField] private float aoeWarningDuration = 1f;
+    [SerializeField] private float aoeExplosionRadius = 3f;
+    [SerializeField] private float aoeDamage = 15f;
+    public GameObject aoeWarningPrefab;
 
     protected override void Start()
     {
         base.Start(); 
-        base.attackCooldown = 3f;
+        attackCooldown = 3f;
         attackPatterns = new List<IAttackPattern>
         {
-            new MeleeAttackPattern(),
-            new AoeAttackPattern()
+            new MeleeAttackPattern(dashSpeed, dashDuration, dashDamage),
+            new AoeAttackPattern(aoeWarningDuration,aoeExplosionRadius,aoeDamage,aoeWarningPrefab)
         };
     }
     
     void Update()
     {
+        if(attackPatterns.Any(pattern => pattern.IsRunning)) return;
         float distance = Vector3.Distance(transform.position, player.position);
         if(Time.time - lastAttackTime >= attackCooldown)
         {
@@ -30,7 +38,7 @@ public class Boss : Enemy
                 {
                     if(attackPattern is AoeAttackPattern)
                     {
-                        attackPattern.Execute(player);
+                        attackPattern.Execute(player,this);
                         lastAttackTime = Time.time;
                         break;
                     }
@@ -42,7 +50,7 @@ public class Boss : Enemy
                 {
                     if(attackPattern is MeleeAttackPattern)
                     {
-                        attackPattern.Execute(player);
+                        attackPattern.Execute(player,this);
                         lastAttackTime = Time.time;
                         break;
                     }
