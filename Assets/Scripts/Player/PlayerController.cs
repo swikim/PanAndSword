@@ -116,6 +116,7 @@ public class PlayerController : MonoBehaviour,IDamageable
     }
     private void Die()
     {
+        Debug.Log("MaxHp" + maxHp);
         if(GameData.playerStatus.hasRevive)
         {
             GameData.playerStatus.hasRevive = false;

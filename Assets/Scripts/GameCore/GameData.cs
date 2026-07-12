@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStatus
 {
     public float attackDamage = 10f;
-    public float maxHp = 10f;
+    public float maxHp = 100f;
     public float skillCooldown = 8f;
     public bool hasRevive = false;
 }

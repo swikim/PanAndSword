@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.MPE;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour,IDamageable
 {
     public float maxHP = 30;
     protected float currentHP;
+    public float CurrentHP => currentHP;
     
     protected float moveSpeed = 2f;
     protected float chaseRange = 8f;
-    protected float attackRange = 2f;
-    public float attackCooldown = 5f;
 
     protected Transform player;
     protected Rigidbody rb;

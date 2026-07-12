@@ -6,6 +6,7 @@ public class Boss : Enemy
 {
     private List<IAttackPattern> attackPatterns;
     private float lastAttackTime;
+    [SerializeField] private float attackCooldown = 3f;
     [SerializeField] private float judgeRange = 10f;
     [SerializeField] public float dashSpeed = 10f;
     [SerializeField] public float dashDuration = 0.5f;
@@ -18,7 +19,9 @@ public class Boss : Enemy
     protected override void Start()
     {
         base.Start(); 
-        attackCooldown = 3f;
+        moveSpeed = 1f;
+        maxHP = 200f; //미정
+        currentHP = maxHP;
         attackPatterns = new List<IAttackPattern>
         {
             new MeleeAttackPattern(dashSpeed, dashDuration, dashDamage),
