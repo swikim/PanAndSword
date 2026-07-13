@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Boss : Enemy
 {
+    [SerializeField] private GameObject minotosVisual; 
+    [SerializeField] private GameObject extinguisherObject;
     private List<IAttackPattern> attackPatterns;
     private float lastAttackTime;
     [SerializeField] private float attackCooldown = 3f;
@@ -15,12 +17,14 @@ public class Boss : Enemy
     [SerializeField] private float aoeExplosionRadius = 3f;
     [SerializeField] private float aoeDamage = 15f;
     public GameObject aoeWarningPrefab;
+    private bool isPhaseTwo = false;
 
     protected override void Start()
     {
         base.Start(); 
+        OnHpChanged += CheckPhaseTransition;
         moveSpeed = 1f;
-        maxHP = 200f; //미정
+        maxHP = 20f; //미정
         currentHP = maxHP;
         attackPatterns = new List<IAttackPattern>
         {
@@ -60,5 +64,29 @@ public class Boss : Enemy
                 }
             }
         }
+    }
+
+    private void CheckPhaseTransition(float currentHp, float maxHp)
+    {
+        if (!isPhaseTwo && currentHp <= maxHp * 0.5f)
+        {
+            isPhaseTwo = true;
+            attackCooldown *= 0.8f; // 공격 쿨다운 감소
+            attackPatterns = new List<IAttackPattern>
+            {
+                new MeleeAttackPattern(dashSpeed * 1.15f, dashDuration, dashDamage * 1.2f),
+                new AoeAttackPattern(aoeWarningDuration * 0.85f, aoeExplosionRadius * 1.15f, aoeDamage * 1.1f, aoeWarningPrefab)
+            };
+        }
+    }
+    protected override void Die()
+    {
+        Debug.Log("Boss 사망!");
+        enabled = false;
+        TryDrop();
+        
+        extinguisherObject.SetActive(true);
+        extinguisherObject.transform.position = gameObject.transform.position;
+        minotosVisual.SetActive(false);
     }
 }

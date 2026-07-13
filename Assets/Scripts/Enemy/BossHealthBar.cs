@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class BossHealthBar : MonoBehaviour
 {
     [SerializeField]private Slider hpBar;
+    private Image fillImage;
     private Boss boss;
     void Awake()
     {
         boss = GetComponent<Boss>();
+        fillImage = hpBar.fillRect.GetComponent<Image>(); 
     }
     void Start()
     {
@@ -22,7 +24,8 @@ public class BossHealthBar : MonoBehaviour
     }  
     private void UpdateHpBar(float currentHp, float maxHp)
     {
-        hpBar.value = (float)currentHp / maxHp;
+        hpBar.value = currentHp / maxHp;
+        fillImage.color = currentHp <= maxHp * 0.5f ? Color.red : Color.green;
     }
     void OnDestroy()
     {
