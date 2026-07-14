@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public enum WeaponType
 {
@@ -38,15 +39,20 @@ public class WeaponSwitcher : MonoBehaviour
         lastSwitchTime = Time.time;
 
         currentWeapon = (currentWeapon == WeaponType.Pan) ? WeaponType.Sword : WeaponType.Pan;
-        UpdateWeaponVisual();
+        StartCoroutine(SwitchWeaponVisualDelayed());
 
         playerController.TriggerAnimation("SwitchWeapon");
         Debug.Log("현재 무기: " + currentWeapon);
     }
 
-    void UpdateWeaponVisual()
+    private void UpdateWeaponVisual()
     {
         panObject.SetActive(currentWeapon == WeaponType.Pan);
         swordObject.SetActive(currentWeapon == WeaponType.Sword);
+    }
+    IEnumerator SwitchWeaponVisualDelayed()
+    {
+        yield return new WaitForSeconds(1f);
+        UpdateWeaponVisual();
     }
 }

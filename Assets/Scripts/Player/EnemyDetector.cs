@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyDetector : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem attackEffect;
+    [SerializeField]private Vector3 effectPositionOffset = new Vector3(0f, 1f, 0f);
     public float detectRange = 5f; // 감지 범위
     public float attackInterval = 1f; // 공격 주기
 
@@ -70,6 +72,17 @@ public class EnemyDetector : MonoBehaviour
         int damage = Mathf.RoundToInt(playerController.attackDamage * multiplier);
         enemy.TakeDamage(damage);
         playerController.PlayAttackAnimation(weaponSwitcher.currentWeapon);
+        
+        PlayAttackEffect(gameObject.transform.position+effectPositionOffset);
         Debug.Log("Damage : "+damage);
+    }
+    void PlayAttackEffect(Vector3 position)
+    {
+        if(attackEffect != null)
+        {
+            ParticleSystem ps = Instantiate(attackEffect, position, Quaternion.identity);
+            attackEffect.transform.position = position;
+            attackEffect.Play();
+        }
     }
 }
