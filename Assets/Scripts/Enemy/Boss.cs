@@ -8,6 +8,7 @@ public class Boss : Enemy
     [SerializeField] private GameObject extinguisherObject;
     private List<IAttackPattern> attackPatterns;
     private float lastAttackTime;
+    [SerializeField] private float bossHp;
     [SerializeField] private float attackCooldown = 3f;
     [SerializeField] private float judgeRange = 10f;
     [SerializeField] public float dashSpeed = 10f;
@@ -24,7 +25,7 @@ public class Boss : Enemy
         base.Start(); 
         OnHpChanged += CheckPhaseTransition;
         moveSpeed = 1f;
-        maxHP = 20f; //미정
+        maxHP = bossHp;
         currentHP = maxHP;
         attackPatterns = new List<IAttackPattern>
         {

@@ -13,11 +13,13 @@ public class EnemyDetector : MonoBehaviour
     private Transform currentTarget;
     private WeaponSwitcher weaponSwitcher;
     private PlayerController playerController;
+    [SerializeField] private HitEffectPool hitEffectPool;
 
     void Start()
     {
         weaponSwitcher = GetComponent<WeaponSwitcher>();
         playerController = GetComponent<PlayerController>();
+        hitEffectPool = HitEffectPool.Instance;
         StartCoroutine(AutoAttackRoutine());   
     }
     void Update()
@@ -50,7 +52,12 @@ public class EnemyDetector : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectRange);
+        Vector3 rightBoundary = Quaternion.Euler(0,40f,0) * transform.forward;
+        Vector3 leftBoundary = Quaternion.Euler(0,-40f,0) * transform.forward;
+        Gizmos.DrawLine(transform.position, transform.position + rightBoundary * detectRange);
+        Gizmos.DrawLine(transform.position, transform.position + leftBoundary * detectRange);
     }
+    
 
     IEnumerator AutoAttackRoutine()
     {
@@ -65,24 +72,25 @@ public class EnemyDetector : MonoBehaviour
 
     void Attack(Transform target)
     {
+        Vector3 toTarget = target.position - transform.position;
+        float distance = toTarget.magnitude;
+        Vector3 direction = toTarget.normalized;
+        float angle = Vector3.Angle(transform.forward, direction);
         Enemy enemy = target.GetComponent<Enemy>();
 
         if (enemy == null) return;
-        float multiplier = (weaponSwitcher.currentWeapon == WeaponType.Pan) ? 1.5f : 0.8f;
-        int damage = Mathf.RoundToInt(playerController.attackDamage * multiplier);
-        enemy.TakeDamage(damage);
-        playerController.PlayAttackAnimation(weaponSwitcher.currentWeapon);
-        
-        PlayAttackEffect(gameObject.transform.position+effectPositionOffset);
-        Debug.Log("Damage : "+damage);
-    }
-    void PlayAttackEffect(Vector3 position)
-    {
-        if(attackEffect != null)
+        if(angle < 40f && toTarget.magnitude <= 50f)
         {
-            ParticleSystem ps = Instantiate(attackEffect, position, Quaternion.identity);
-            attackEffect.transform.position = position;
-            attackEffect.Play();
+             float multiplier = (weaponSwitcher.currentWeapon == WeaponType.Pan) ? 1.5f : 0.8f;
+            int damage = Mathf.RoundToInt(playerController.attackDamage * multiplier);
+            enemy.TakeDamage(damage);
+            playerController.PlayAttackAnimation(weaponSwitcher.currentWeapon);
+            
+            hitEffectPool.PlayHitEffect(target.transform.position + effectPositionOffset);
+            Debug.Log("Damage : "+damage);
         }
+       
     }
+    
+    
 }

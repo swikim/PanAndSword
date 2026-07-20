@@ -28,10 +28,6 @@ public class HitEffectPool : MonoBehaviour
             hitEffectPool.Enqueue(hitEffect);
         }
     }
-    void Start()
-    {
-        
-    } 
     public void PlayHitEffect(Vector3 position)
     {
         if (hitEffectPool.Count == 0)
