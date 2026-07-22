@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
 public class Boss : Enemy
@@ -8,15 +9,7 @@ public class Boss : Enemy
     [SerializeField] private GameObject extinguisherObject;
     private List<IAttackPattern> attackPatterns;
     private float lastAttackTime;
-    [SerializeField] private float bossHp;
-    [SerializeField] private float attackCooldown = 3f;
-    [SerializeField] private float judgeRange = 10f;
-    [SerializeField] public float dashSpeed = 10f;
-    [SerializeField] public float dashDuration = 0.5f;
-    [SerializeField] public float dashDamage = 20f;
-    [SerializeField] private float aoeWarningDuration = 1f;
-    [SerializeField] private float aoeExplosionRadius = 3f;
-    [SerializeField] private float aoeDamage = 15f;
+    private float currentAttackCooldown;
     public GameObject aoeWarningPrefab;
     private bool isPhaseTwo = false;
 
@@ -24,13 +17,12 @@ public class Boss : Enemy
     {
         base.Start(); 
         OnHpChanged += CheckPhaseTransition;
-        moveSpeed = 1f;
-        maxHP = bossHp;
-        currentHP = maxHP;
+        
+        currentAttackCooldown = enemyData.bossAttackCooldown;
         attackPatterns = new List<IAttackPattern>
         {
-            new MeleeAttackPattern(dashSpeed, dashDuration, dashDamage),
-            new AoeAttackPattern(aoeWarningDuration,aoeExplosionRadius,aoeDamage,aoeWarningPrefab)
+            new MeleeAttackPattern(enemyData.dashSpeed, enemyData.dashDuration, enemyData.dashDamage),
+            new AoeAttackPattern(enemyData.aoeWarningDuration, enemyData.aoeExplosionRadius, enemyData.aoeDamage, aoeWarningPrefab)
         };
     }
     
@@ -38,9 +30,9 @@ public class Boss : Enemy
     {
         if(attackPatterns.Any(pattern => pattern.IsRunning)) return;
         float distance = Vector3.Distance(transform.position, player.position);
-        if(Time.time - lastAttackTime >= attackCooldown)
+        if(Time.time - lastAttackTime >= currentAttackCooldown)
         {
-            if(distance > judgeRange)
+            if(distance > enemyData.judgeRange)
             {
                 foreach(IAttackPattern attackPattern in attackPatterns)
                 {
@@ -72,11 +64,12 @@ public class Boss : Enemy
         if (!isPhaseTwo && currentHp <= maxHp * 0.5f)
         {
             isPhaseTwo = true;
-            attackCooldown *= 0.8f; // 공격 쿨다운 감소
+            currentAttackCooldown *= 0.8f; 
+
             attackPatterns = new List<IAttackPattern>
             {
-                new MeleeAttackPattern(dashSpeed * 1.15f, dashDuration, dashDamage * 1.2f),
-                new AoeAttackPattern(aoeWarningDuration * 0.85f, aoeExplosionRadius * 1.15f, aoeDamage * 1.1f, aoeWarningPrefab)
+                new MeleeAttackPattern(enemyData.dashSpeed * 1.15f, enemyData.dashDuration, enemyData.dashDamage * 1.2f),
+                new AoeAttackPattern(enemyData.aoeWarningDuration * 0.85f, enemyData.aoeExplosionRadius * 1.15f, enemyData.aoeDamage * 1.1f, aoeWarningPrefab)
             };
         }
     }

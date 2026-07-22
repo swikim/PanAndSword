@@ -1,48 +1,65 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.MPE;
+using System.Text;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour,IDamageable
 {
-    public float maxHP = 30;
+    public float maxHP;
     protected float currentHP;
     public float CurrentHP => currentHP;
-    
-    protected float moveSpeed = 2f;
-    protected float chaseRange = 8f;
-
     protected Transform player;
     protected Rigidbody rb;
-    [SerializeField] private List <IngredientData> dropTable;
+    
+    public EnemyData enemyData;
     public event System.Action<float,float> OnHpChanged;
+    private IAttackPattern attackPattern;
+    private float lastAttackTime;
 
     protected virtual void Start()
     {
+        maxHP = enemyData.maxHP;
         currentHP = maxHP;
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         OnHpChanged?.Invoke(currentHP,maxHP);
+
+        PlayerController playerController  = player.GetComponent<PlayerController>();
+        attackPattern = new NormalAttackPattern(enemyData.attackRange,enemyData.attackDamage,playerController);
     }
     void FixedUpdate()
     {
         ChasePlayer();
     }
+    void Update()
+    {
+        TryAttack();
+    }
+    public void TryAttack()
+    {
+        if(attackPattern.IsRunning) return;
+
+        if (Time.time - lastAttackTime >= enemyData.attackCooldown)
+        {
+            attackPattern.Execute(player, this);
+            lastAttackTime = Time.time;
+        }
+    }
     protected virtual void ChasePlayer()
     {
         float distance = Vector3.Distance(transform.position, player.position);
 
-        if(distance <= chaseRange)
+        if(distance <= enemyData.chaseRange)
         {
             Vector3 direction = (player.position - transform.position).normalized;
-            rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + direction * enemyData.moveSpeed * Time.fixedDeltaTime);
         }
     }
 
     public virtual void TakeDamage(float damage)
     {
         currentHP -= damage;
-        OnHpChanged?.Invoke(currentHP,maxHP);
+        OnHpChanged?.Invoke(currentHP,enemyData.maxHP);
 
         if(currentHP <= 0)
         {
@@ -57,7 +74,7 @@ public class Enemy : MonoBehaviour,IDamageable
     }
     protected virtual void TryDrop()
     {
-        foreach(var data in dropTable)
+        foreach(var data in enemyData.dropTable)
         {
             if(Random.value <= data.dropRate)
             {
