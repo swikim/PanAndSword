@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour,IDamageable
         moveDirection = new Vector3(h, 0f, v).normalized;
 
         bool isMoving = moveDirection.magnitude > 0.1f;
-        animator.SetBool("IsMoving", isMoving);
+        animator.SetBool(AnimParam.IsMoving.ToString(), isMoving);
 
         if (isMoving)
         {
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour,IDamageable
 
 
         bool isMoving = moveDirection.magnitude > 0.1f;
-        animator.SetBool("IsMoving", isMoving);
+        animator.SetBool(AnimParam.IsMoving.ToString(), isMoving);
 
         if (isMoving)
         {
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour,IDamageable
         if (IsDead) return;
         if(type == WeaponType.Pan)
         {
-            animator.SetTrigger("Attack");
+            animator.SetTrigger(AnimParam.Attack.ToString());
         }
         else
             animator.SetTrigger("SwordAttack");
@@ -124,14 +124,14 @@ public class PlayerController : MonoBehaviour,IDamageable
             return;
         }
         IsDead = true;
-        TriggerAnimation("Death");
+        TriggerAnimation(AnimParam.Death.ToString());
         OnPlayerDied?.Invoke();
     }
 
     private IEnumerator ReviveRoutine()
     {
         IsDead = true;
-        TriggerAnimation("Death");
+        TriggerAnimation(AnimParam.Death.ToString());
         
         yield return new WaitForSeconds(1.5f); 
         

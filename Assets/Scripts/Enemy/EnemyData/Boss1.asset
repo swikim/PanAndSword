@@ -24,7 +24,7 @@ MonoBehaviour:
   bossAttackCooldown: 7
   judgeRange: 100
   dashSpeed: 10
-  dashDuration: 10
+  dashDuration: 1
   dashDamage: 10
   aoeWarningDuration: 4
   aoeExplosionRadius: 100

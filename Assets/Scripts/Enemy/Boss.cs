@@ -8,7 +8,7 @@ public class Boss : Enemy
     [SerializeField] private GameObject minotosVisual; 
     [SerializeField] private GameObject extinguisherObject;
     private List<IAttackPattern> attackPatterns;
-    private float lastAttackTime;
+    private float bossLastAttackTime;
     private float currentAttackCooldown;
     public GameObject aoeWarningPrefab;
     private bool isPhaseTwo = false;
@@ -30,7 +30,7 @@ public class Boss : Enemy
     {
         if(attackPatterns.Any(pattern => pattern.IsRunning)) return;
         float distance = Vector3.Distance(transform.position, player.position);
-        if(Time.time - lastAttackTime >= currentAttackCooldown)
+        if(Time.time - bossLastAttackTime >= currentAttackCooldown)
         {
             if(distance > enemyData.judgeRange)
             {
@@ -39,7 +39,7 @@ public class Boss : Enemy
                     if(attackPattern is AoeAttackPattern)
                     {
                         attackPattern.Execute(player,this);
-                        lastAttackTime = Time.time;
+                        bossLastAttackTime = Time.time;
                         break;
                     }
                 }
@@ -51,7 +51,7 @@ public class Boss : Enemy
                     if(attackPattern is MeleeAttackPattern)
                     {
                         attackPattern.Execute(player,this);
-                        lastAttackTime = Time.time;
+                        bossLastAttackTime = Time.time;
                         break;
                     }
                 }
