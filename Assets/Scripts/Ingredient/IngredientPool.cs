@@ -60,8 +60,9 @@ public class IngredientPool : MonoBehaviour
             ? queue.Dequeue()
             : Instantiate(GetPrefab(data), transform);
 
-        obj.SetActive(true);
         obj.transform.position = position;
+        obj.SetActive(true);
+        
         Debug.Log("GET ITEM");
         return obj;
     }

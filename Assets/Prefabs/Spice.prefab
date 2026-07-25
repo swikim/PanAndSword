@@ -56,6 +56,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientData: {fileID: 11400000, guid: da76d2492ca14463e9f9b3af279e5ffa, type: 2}
+  scatterMinRadius: 0.5
+  scatterMaxRadius: 1.5
+  popHeight: 2
+  popDuration: 0.7
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!23 &4772550991183692005
 MeshRenderer:
   m_ObjectHideFlags: 0
