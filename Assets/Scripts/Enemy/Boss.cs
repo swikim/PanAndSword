@@ -73,6 +73,20 @@ public class Boss : Enemy
             };
         }
     }
+    protected override void TryDrop()
+    {
+        foreach(var data in enemyData.dropTable)
+        {
+            int dropRange = Random.Range(data.minDropCount, data.maxDropCount + 1);
+            if(Random.value <= data.dropRate)
+            {
+                for(int i = 0; i < dropRange; i++)
+                {
+                    IngredientPool.Instance.Get(data,transform.position);
+                }
+            }
+        }
+    }
     protected override void Die()
     {
         Debug.Log("Boss 사망!");

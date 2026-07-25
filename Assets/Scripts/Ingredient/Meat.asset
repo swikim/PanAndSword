@@ -16,3 +16,5 @@ MonoBehaviour:
   sprite: {fileID: -852741761, guid: 886ce9e9eb4e94fae99193f2e67255be, type: 3}
   dropRate: 1
   type: 0
+  minDropCount: 1
+  maxDropCount: 3

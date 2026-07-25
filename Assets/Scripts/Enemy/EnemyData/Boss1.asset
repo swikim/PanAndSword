@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Boss1
   m_EditorClassIdentifier: 
   enemyName: Boss1
-  maxHP: 30
+  maxHP: 10
   moveSpeed: 1.2
   chaseRange: 50
   dropTable:
   - {fileID: 11400000, guid: 0e01d02440a7f4d289aaf79cd2c5b805, type: 2}
+  - {fileID: 11400000, guid: da76d2492ca14463e9f9b3af279e5ffa, type: 2}
+  - {fileID: 11400000, guid: fb37660c9997a4a3b999a181e1efe1e9, type: 2}
   attackRange: 25
   attackDamage: 10
   attackCooldown: 10
