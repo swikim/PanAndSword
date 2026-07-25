@@ -79,7 +79,7 @@ public class EnemyDetector : MonoBehaviour
         Enemy enemy = target.GetComponent<Enemy>();
 
         if (enemy == null) return;
-        if(angle < 40f && toTarget.magnitude <= 50f)
+        if(angle < 50f && toTarget.magnitude <= 50f)
         {
              float multiplier = (weaponSwitcher.currentWeapon == WeaponType.Pan) ? 1.5f : 0.8f;
             int damage = Mathf.RoundToInt(playerController.attackDamage * multiplier);

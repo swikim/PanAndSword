@@ -24,17 +24,22 @@ public class AoeAttackPattern : IAttackPattern
     private IEnumerator AoeRoutine(Transform target, MonoBehaviour owner)
     {
         IsRunning = true;
+        float diameter = explosionRadius * 2f;
+        
         Vector3 warningPos = new Vector3(target.position.x,0.1f,target.position.z);
-        GameObject warnigEffect = GameObject.Instantiate(warningPrefab,warningPos,Quaternion.identity);
+        GameObject warningEffect = GameObject.Instantiate(warningPrefab,warningPos,Quaternion.identity);
+        warningEffect.transform.localScale = new Vector3(diameter, warningEffect.transform.localScale.y, diameter);
 
         yield return new WaitForSeconds(warningDuration);
 
-        GameObject.Destroy(warnigEffect);
+        GameObject.Destroy(warningEffect);
+        Debug.Log("Destroy Warnig");
         Collider[] hits = Physics.OverlapSphere(warningPos, explosionRadius);
         foreach(Collider hit in hits)
         {
             if(hit.TryGetComponent<IDamageable>(out var damageable))
             {
+                Debug.Log(hit.name);
                 damageable.TakeDamage(aoeDamage);
             }
         }
