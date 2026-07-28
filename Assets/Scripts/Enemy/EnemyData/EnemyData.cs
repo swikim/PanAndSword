@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AttackType { Melee, Ranged }
+
 [CreateAssetMenu(menuName = "EnemyData")]
 public class EnemyData : ScriptableObject
 {
@@ -10,11 +12,15 @@ public class EnemyData : ScriptableObject
     public float moveSpeed;
     public float chaseRange;
     public List<IngredientData> dropTable;
+    public AttackType attackType;
 
     [Header("일반 몬스터 - 근접 공격")]
     public float attackRange;
     public float attackDamage;
     public float attackCooldown;
+    [Header("원거리 몬스터 전용")]
+    public float projectileSpeed;
+    public GameObject projectilePrefab;
 
     [Header("보스 전용 - 패턴 전환")]
     public float bossAttackCooldown;

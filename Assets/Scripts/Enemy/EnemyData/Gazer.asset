@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 023beb568668e46c7bd2ae0e64be0510, type: 3}
+  m_Name: Gazer
+  m_EditorClassIdentifier: 
+  enemyName: Gazer
+  maxHP: 20
+  moveSpeed: 1
+  chaseRange: 20
+  dropTable:
+  - {fileID: 11400000, guid: da76d2492ca14463e9f9b3af279e5ffa, type: 2}
+  attackType: 1
+  attackRange: 10
+  attackDamage: 10
+  attackCooldown: 5
+  projectileSpeed: 3
+  projectilePrefab: {fileID: 116107234836674269, guid: 2c736147b61dc43ba971128387458f01, type: 3}
+  bossAttackCooldown: 0
+  judgeRange: 0
+  dashSpeed: 0
+  dashDuration: 0
+  dashDamage: 0
+  aoeWarningDuration: 0
+  aoeExplosionRadius: 0
+  aoeDamage: 0

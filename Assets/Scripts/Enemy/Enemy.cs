@@ -29,7 +29,15 @@ public class Enemy : MonoBehaviour,IDamageable
         OnHpChanged?.Invoke(currentHP,maxHP);
 
         PlayerController playerController  = player.GetComponent<PlayerController>();
-        attackPattern = new NormalAttackPattern(enemyData.attackRange,enemyData.attackDamage,playerController);
+        if(enemyData.attackType == AttackType.Melee)
+        {
+            attackPattern = new NormalAttackPattern(enemyData.attackRange,enemyData.attackDamage,playerController);
+        }
+        else
+        {
+            attackPattern = new RangedAttackPattern(enemyData.attackDamage,enemyData.projectileSpeed,enemyData.projectilePrefab,playerController);
+        }
+        
     }
     void FixedUpdate()
     {
