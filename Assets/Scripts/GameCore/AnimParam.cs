@@ -1,7 +1,7 @@
 public enum AnimParam
 {
-    IsMoving,
-    Attack,
+    IsMoving,//bool
+    Attack,//Trigger
     Death,
     Damaged
 }

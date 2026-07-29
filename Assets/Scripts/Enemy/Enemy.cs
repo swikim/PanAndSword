@@ -25,7 +25,9 @@ public class Enemy : MonoBehaviour,IDamageable
         currentHP = maxHP;
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        EnemyHpBarManager.Instance.CreateHPbar(this);
         OnHpChanged?.Invoke(currentHP,maxHP);
 
         PlayerController playerController  = player.GetComponent<PlayerController>();

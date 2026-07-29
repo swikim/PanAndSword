@@ -6,17 +6,25 @@ using UnityEngine.UI;
 public class EnemyHealthBar : MonoBehaviour
 {
     [SerializeField]private Slider hpBar;
-    private Enemy enemy;
-    void Awake()
+    private Enemy targetEnemy;
+    private Transform targetTransform;
+    private Vector3 worldOffset = new Vector3(0, 2f, 0);
+
+    void LateUpdate()
     {
-        enemy = GetComponent<Enemy>();
-    }
-    void Start()
-    {
-        if (enemy != null)
+        if(targetTransform == null) 
         {
-            enemy.OnHpChanged += UpdateHpBar;
+            Destroy(gameObject); 
+            return;
         }
+        transform.position = targetTransform.position + worldOffset;
+    }
+    public void Init(Enemy enemy)
+    {
+        targetEnemy = enemy;
+        targetTransform = enemy.transform;
+        Debug.Log(targetTransform.position);
+        targetEnemy.OnHpChanged += UpdateHpBar;
     }
 
     void UpdateHpBar(float currentHp, float maxHp)
@@ -26,9 +34,9 @@ public class EnemyHealthBar : MonoBehaviour
 
     void OnDestroy()
     {
-        if (enemy != null)
+        if (targetEnemy != null)
         {
-            enemy.OnHpChanged -= UpdateHpBar;
+            targetEnemy.OnHpChanged -= UpdateHpBar;
         }
     }
 }
