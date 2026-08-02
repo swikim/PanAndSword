@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour,IDamageable
     private IAttackPattern attackPattern;
     private float lastAttackTime;
     protected Animator animator;
+   
     
 
     protected virtual void Start()
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour,IDamageable
         animator = GetComponent<Animator>();
         
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        
         EnemyHpBarManager.Instance.CreateHPbar(this);
         OnHpChanged?.Invoke(currentHP,maxHP);
 
@@ -53,7 +55,9 @@ public class Enemy : MonoBehaviour,IDamageable
     {
         if(attackPattern.IsRunning) return;
 
-        if (Time.time - lastAttackTime >= enemyData.attackCooldown)
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (Time.time - lastAttackTime >= enemyData.attackCooldown && distance <= enemyData.attackRange)
         {
             attackPattern.Execute(player, this);
             lastAttackTime = Time.time;

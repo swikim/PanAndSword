@@ -20,6 +20,7 @@ public class SaveManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         saveFilePath = Path.Combine(Application.persistentDataPath, "save.json");
         LoadGameData();
+        Debug.Log($"Game data saved to {saveFilePath}");
     }
 
     public void SaveGameData()

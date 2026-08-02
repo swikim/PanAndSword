@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[System.Serializable]
+public class Stage
+{
+    public List<RoomController> rooms;
+}
 public class RoomManager : MonoBehaviour
 {
     public static  RoomManager Instance { get; private set;} 
 
-    public List<RoomController> rooms;
+    public List<Stage> stages;
     public event Action<RoomController> OnRoomCleared;
-    private int clearedCount = 0;
+    private int clearedStageCount = 0;
+    private int clearedRoomCount = 0;
+    
 
     void Awake()
     {
@@ -23,43 +30,76 @@ public class RoomManager : MonoBehaviour
     
     void Start()
     {
-        foreach(RoomController room in rooms)
+        foreach(Stage stage in stages)
         {
-            room.OnRoomCleared += HandleRoomCleared;
-            room.OnDoorPassed += RoomEnemyContainerActive;
+            foreach(RoomController room in stage.rooms)
+            {
+                room.OnRoomCleared += HandleRoomCleared;
+                room.OnDoorPassed += StageEnemyContainerActive;
+            }
         }
     }
     void HandleRoomCleared(RoomController clearedRoom)
     {
-        clearedCount++;
-        Debug.Log($"[RoomManager] {clearedRoom.name} 클리어 ({clearedCount}/{rooms.Count})");
-        
-        if(clearedCount >= rooms.Count)
+        clearedRoomCount++;
+        if(stages[clearedStageCount].rooms.Count <= clearedRoomCount)
         {
-            UnsubscribeAll();
-            Debug.Log("All rooms cleared");
+            clearedStageCount++;
+            clearedRoomCount = 0;
         }
+
+        if (stages.Count <= clearedStageCount)
+        {
+            Debug.Log("모든 스테이지 클리어!");
+            //UnsubscribeAll(); 
+            return; 
+        }
+
+        Debug.Log($"[RoomManager] {clearedRoom.name} 클리어 ({clearedRoomCount}/{stages[clearedStageCount].rooms.Count})");
     }
-    public void RoomEnemyContainerActive(RoomController clearedRoom)
+   
+    
+    public void StageEnemyContainerActive(RoomController clearedRoom)
     {
-        int index = rooms.IndexOf(clearedRoom);
-        if(index + 1 < rooms.Count)
+        for(int stageIndex = 0; stageIndex < stages.Count; stageIndex++)
         {
-            StartCoroutine(OpenRoomRoutine(index));
+            int roomIndex = stages[stageIndex].rooms.IndexOf(clearedRoom);
+            if (roomIndex == -1) continue;
+
+            List<RoomController> stageRooms = stages[stageIndex].rooms;
+
+            if(roomIndex + 1 < stageRooms.Count)
+            {
+                StartCoroutine(OpenRoomRoutine(stageIndex, roomIndex));
+                return;
+            }
+            else if(roomIndex + 1 == stageRooms.Count)
+            {
+                //clearedRoom.OpenPortal();
+                Debug.Log($"[RoomManager] {clearedRoom.name} 마지막 방 클리어. 포탈 오픈!");
+                return;
+            }
         }
     }
-    IEnumerator OpenRoomRoutine(int index)
+    IEnumerator OpenRoomRoutine(int stageIndex, int RoomIndex)
     {
         yield return new WaitForSeconds(1f);
-        rooms[index + 1].ActivateRoom();
-        rooms[index].CloseDoor();
+        stages[stageIndex].rooms[RoomIndex + 1].ActivateRoom();
+        stages[stageIndex].rooms[RoomIndex].CloseDoor();
     }
+    
     void UnsubscribeAll()
     {
-        if(rooms == null) return;
-        foreach(RoomController room in rooms)
+        foreach(Stage stage in stages)
         {
-            if(room != null) room.OnRoomCleared -= HandleRoomCleared;
+            foreach(RoomController room in stage.rooms)
+            {
+                if(room != null)
+                {
+                    room.OnRoomCleared -= HandleRoomCleared;
+                    room.OnDoorPassed -= StageEnemyContainerActive;
+                }
+            }
         }
     }
 
