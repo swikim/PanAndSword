@@ -143,4 +143,9 @@ public class PlayerController : MonoBehaviour,IDamageable
         OnHealthChanged?.Invoke(CurrentHp, maxHp);
         Debug.Log("부활!");
     }
+
+    public void TeleportToNextStage(Vector3 nextStagePos)
+    {
+        transform.position = nextStagePos;
+    }
 }

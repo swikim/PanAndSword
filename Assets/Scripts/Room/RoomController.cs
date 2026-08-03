@@ -4,20 +4,23 @@ using UnityEngine;
 using System;
 using Unity.VisualScripting;
 
+public enum RoomType
+{
+    Normal,
+    Boss,
+}
 public class RoomController : MonoBehaviour
 {
+    public RoomType roomType;
     public GameObject doorObject;
     public GameObject doorTrigger;
     public Transform enemyContainer;
+    public GameObject portalPrefab;
     private bool isCleared = false;
 
     public event Action<RoomController> OnRoomCleared;
     public event Action<RoomController> OnDoorPassed;
 
-    void Start()
-    {
-        
-    }
     void Update()
     {
         if(isCleared) return;
@@ -43,6 +46,10 @@ public class RoomController : MonoBehaviour
     void ClearRoom()
     {
         isCleared = true;
+        if(roomType == RoomType.Boss)
+        {
+            portalPrefab.SetActive(true);
+        }
         doorObject.SetActive(false);
         Debug.Log(gameObject.name + " 클리어! 문이 열렸습니다.");
 

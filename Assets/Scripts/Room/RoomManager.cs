@@ -73,12 +73,6 @@ public class RoomManager : MonoBehaviour
                 StartCoroutine(OpenRoomRoutine(stageIndex, roomIndex));
                 return;
             }
-            else if(roomIndex + 1 == stageRooms.Count)
-            {
-                //clearedRoom.OpenPortal();
-                Debug.Log($"[RoomManager] {clearedRoom.name} 마지막 방 클리어. 포탈 오픈!");
-                return;
-            }
         }
     }
     IEnumerator OpenRoomRoutine(int stageIndex, int RoomIndex)
@@ -86,6 +80,17 @@ public class RoomManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         stages[stageIndex].rooms[RoomIndex + 1].ActivateRoom();
         stages[stageIndex].rooms[RoomIndex].CloseDoor();
+    }
+    public void ActivateNextStage(int currentStageIndex)
+    {
+        int nextStageIndex = currentStageIndex + 1;
+        if (nextStageIndex >= stages.Count)
+        {
+            Debug.Log("모든 스테이지 클리어! 던전 종료");
+            return;
+        }
+
+        stages[nextStageIndex].rooms[0].ActivateRoom();
     }
     
     void UnsubscribeAll()
