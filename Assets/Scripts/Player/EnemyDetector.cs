@@ -9,6 +9,11 @@ public class EnemyDetector : MonoBehaviour
     [SerializeField]private Vector3 effectPositionOffset = new Vector3(0f, 1f, 0f);
     public float detectRange = 5f; // 감지 범위
     public float attackInterval = 1f; // 공격 주기
+    public float closeAttackRange = 1.5f; 
+    public float closeAttackAngle = 65f; // 근접 공격 범위 각도 
+    public float attackAngle = 45f; // 공격 범위 각도 
+    
+    
 
     private Transform currentTarget;
     private WeaponSwitcher weaponSwitcher;
@@ -22,10 +27,7 @@ public class EnemyDetector : MonoBehaviour
         hitEffectPool = HitEffectPool.Instance;
         StartCoroutine(AutoAttackRoutine());   
     }
-    void Update()
-    {
-        FindNearestEnemy();
-    }
+    
 
     void FindNearestEnemy()
     {
@@ -52,10 +54,17 @@ public class EnemyDetector : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectRange);
-        Vector3 rightBoundary = Quaternion.Euler(0,40f,0) * transform.forward;
-        Vector3 leftBoundary = Quaternion.Euler(0,-40f,0) * transform.forward;
+        Vector3 rightBoundary = Quaternion.Euler(0, attackAngle, 0) * transform.forward;
+        Vector3 leftBoundary = Quaternion.Euler(0, -attackAngle, 0) * transform.forward;
         Gizmos.DrawLine(transform.position, transform.position + rightBoundary * detectRange);
         Gizmos.DrawLine(transform.position, transform.position + leftBoundary * detectRange);
+
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, closeAttackRange);
+        Vector3 forwardBoundary = Quaternion.Euler(0, closeAttackAngle, 0) * transform.forward;
+        Vector3 backwardBoundary = Quaternion.Euler(0, -closeAttackAngle, 0) * transform.forward;
+        Gizmos.DrawLine(transform.position, transform.position + forwardBoundary * closeAttackRange);
+        Gizmos.DrawLine(transform.position, transform.position + backwardBoundary * closeAttackRange);
     }
     
 
@@ -63,6 +72,8 @@ public class EnemyDetector : MonoBehaviour
     {
         while (true)
         {
+            FindNearestEnemy();
+
             if(currentTarget != null)
                 Attack(currentTarget);
 
@@ -78,10 +89,14 @@ public class EnemyDetector : MonoBehaviour
         float angle = Vector3.Angle(transform.forward, direction);
         Enemy enemy = target.GetComponent<Enemy>();
 
+        bool isInCloseRange = distance <= closeAttackRange && angle < closeAttackAngle;
+        bool isInFanRange = distance <= detectRange && angle < attackAngle;
+
         if (enemy == null) return;
-        if(angle < 50f && toTarget.magnitude <= 50f)
+
+        if(isInCloseRange || isInFanRange)
         {
-             float multiplier = (weaponSwitcher.currentWeapon == WeaponType.Pan) ? 1.5f : 0.8f;
+            float multiplier = (weaponSwitcher.currentWeapon == WeaponType.Pan) ? 1.5f : 0.8f;
             int damage = Mathf.RoundToInt(playerController.attackDamage * multiplier);
             enemy.TakeDamage(damage);
             playerController.PlayAttackAnimation(weaponSwitcher.currentWeapon);
@@ -89,6 +104,7 @@ public class EnemyDetector : MonoBehaviour
             hitEffectPool.PlayHitEffect(target.transform.position + effectPositionOffset);
             Debug.Log("Damage : "+damage);
         }
+        
        
     }
     
