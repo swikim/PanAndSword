@@ -16,10 +16,12 @@ public class RoomManager : MonoBehaviour
     public event Action<RoomController> OnRoomCleared;
     private int clearedStageCount = 0;
     private int clearedRoomCount = 0;
+    private float gameStartTime;
     
 
     void Awake()
     {
+        gameStartTime = Time.time;
         if(Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -30,6 +32,8 @@ public class RoomManager : MonoBehaviour
     
     void Start()
     {
+        IngredientManager.Instance.ResetRunCollected();
+         
         foreach(Stage stage in stages)
         {
             foreach(RoomController room in stage.rooms)
@@ -106,6 +110,11 @@ public class RoomManager : MonoBehaviour
                 }
             }
         }
+    }
+    public void ShowResultPannel()
+    {
+        float totalTime = Time.time - gameStartTime;
+        DungeonResultUI.Instance.ShowResultPanel(totalTime);
     }
 
     void OnDestroy()

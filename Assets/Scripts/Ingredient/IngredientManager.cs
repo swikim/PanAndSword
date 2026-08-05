@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class IngredientManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class IngredientManager : MonoBehaviour
     private const int UpgradeThreshold = 2;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Skill skill;
+    public Dictionary<IngredientData,int> currentRunCollected = new Dictionary<IngredientData, int>();
 
 
     void Awake()
@@ -43,6 +45,14 @@ public class IngredientManager : MonoBehaviour
             IngredientType.Spice     => GameData.ingredientData.spiceCount,
             _                        => 0
         };
+        if(currentRunCollected.ContainsKey(data))
+        {
+            currentRunCollected[data]++;
+        }
+        else
+        {
+            currentRunCollected[data] = 1;
+        }
 
         Debug.Log($"[Manager] {data.type} {currentCount}/{UpgradeThreshold}");
         
@@ -52,6 +62,14 @@ public class IngredientManager : MonoBehaviour
             //레시피 데이터에 bool 값을 하나 넣어서 사용 가능한지 체크
         }
     }    
+    public void ResetRunCollected()
+    {
+        currentRunCollected.Clear();
+    }
+    public Dictionary<IngredientData, int> GetCurrentRunCollected()
+    {
+        return currentRunCollected;
+    }
     public void ApplyUpgrade(RecipeData recipeData)
     {
         switch (recipeData.skillEffect)

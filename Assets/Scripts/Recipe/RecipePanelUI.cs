@@ -4,13 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class IngredientSlotUI
-{
-    public GameObject slotRoot;
-    public TMP_Text count;
-    public Image icon;
-}
+
 [System.Serializable]
 public class RecipeCardUI
 {
@@ -73,11 +67,11 @@ public class RecipePanelUI : MonoBehaviour
                 }
 
                 // count도 동일하게 검증 로직 추가 가능
-                if (slot.count == null)
+                if (slot.countText == null)
                 {
                     Transform countTransform = slot.slotRoot.transform.Find("CountText");
                     if (countTransform != null)
-                        slot.count = countTransform.GetComponent<TMP_Text>();
+                        slot.countText = countTransform.GetComponent<TMP_Text>();
                     else
                         Debug.LogWarning($"CountText를 못 찾음: {slot.slotRoot.name}");
                 }
@@ -111,9 +105,9 @@ public class RecipePanelUI : MonoBehaviour
             {
                 if (i < RD.requirements.Count)
                 {
-                    card.slotUIList[i].count.text = RD.requirements[i].count.ToString();
+                    card.slotUIList[i].countText.text = RD.requirements[i].count.ToString();
                     card.slotUIList[i].icon.sprite = RD.requirements[i].ingredientData.sprite;
-Debug.Log($"{card.recipeData.recipeName} - 슬롯{i}: sprite = {RD.requirements[i].ingredientData.sprite}");
+                    Debug.Log($"{card.recipeData.recipeName} - 슬롯{i}: sprite = {RD.requirements[i].ingredientData.sprite}");
                     card.slotUIList[i].slotRoot.SetActive(true);
                 }
                 else
