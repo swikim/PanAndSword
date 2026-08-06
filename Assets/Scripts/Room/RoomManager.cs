@@ -11,6 +11,7 @@ public class Stage
 public class RoomManager : MonoBehaviour
 {
     public static  RoomManager Instance { get; private set;} 
+    [SerializeField]private PlayerController playerController;
 
     public List<Stage> stages;
     public event Action<RoomController> OnRoomCleared;
@@ -33,6 +34,7 @@ public class RoomManager : MonoBehaviour
     void Start()
     {
         IngredientManager.Instance.ResetRunCollected();
+        playerController.OnPlayerDied += TriggerGameOver;
          
         foreach(Stage stage in stages)
         {
@@ -99,6 +101,7 @@ public class RoomManager : MonoBehaviour
     
     void UnsubscribeAll()
     {
+        playerController.OnPlayerDied -= TriggerGameOver;
         foreach(Stage stage in stages)
         {
             foreach(RoomController room in stage.rooms)
@@ -113,8 +116,15 @@ public class RoomManager : MonoBehaviour
     }
     public void ShowResultPannel()
     {
+        Time.timeScale = 0f;
         float totalTime = Time.time - gameStartTime;
-        DungeonResultUI.Instance.ShowResultPanel(totalTime);
+        DungeonResultUI.Instance.ShowResultPanel(totalTime,true);
+    }
+    public void TriggerGameOver()
+    {
+        Time.timeScale = 0f;
+        float totalTime = Time.time - gameStartTime;
+        DungeonResultUI.Instance.ShowResultPanel(totalTime,false);
     }
 
     void OnDestroy()

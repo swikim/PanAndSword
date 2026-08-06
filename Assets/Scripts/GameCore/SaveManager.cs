@@ -21,6 +21,7 @@ public class SaveManager : MonoBehaviour
         saveFilePath = Path.Combine(Application.persistentDataPath, "save.json");
         LoadGameData();
         Debug.Log($"Game data saved to {saveFilePath}");
+        Debug.Log($"{GameData.playerStatus.attackDamage}");
     }
 
     public void SaveGameData()

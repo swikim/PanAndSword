@@ -4,9 +4,9 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerStatus
 {
-    public float attackDamage = 100f;
-    public float maxHp = 100f;
-    public float skillCooldown = 8f;
+    public float attackDamage;
+    public float maxHp;
+    public float skillCooldown;
     public bool hasRevive = false;
 }
 [System.Serializable]

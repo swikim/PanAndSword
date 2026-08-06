@@ -10,6 +10,7 @@ public enum WeaponType
 public class WeaponSwitcher : MonoBehaviour
 {
     PlayerController playerController;
+    private EnemyDetector enemyDetector;
     public GameObject panObject;
     public GameObject swordObject;
 
@@ -21,6 +22,7 @@ public class WeaponSwitcher : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        enemyDetector = GetComponent<EnemyDetector>();
         UpdateWeaponVisual();
     }
 
@@ -40,6 +42,20 @@ public class WeaponSwitcher : MonoBehaviour
 
         currentWeapon = (currentWeapon == WeaponType.Pan) ? WeaponType.Sword : WeaponType.Pan;
         StartCoroutine(SwitchWeaponVisualDelayed());
+        if(currentWeapon == WeaponType.Pan)
+        {
+            enemyDetector.attackAngle = 45f;
+            enemyDetector.closeAttackAngle = 65f;
+            enemyDetector.closeAttackRange = 1.5f;
+            enemyDetector.attackInterval = 0.8f;
+        }
+        else if(currentWeapon == WeaponType.Sword)
+        {
+            enemyDetector.attackAngle = 30f;
+            enemyDetector.closeAttackAngle = 45f;
+            enemyDetector.closeAttackRange = 1.0f;
+            enemyDetector.attackInterval = 1f;
+        }
 
         playerController.TriggerAnimation("SwitchWeapon");
         Debug.Log("현재 무기: " + currentWeapon);

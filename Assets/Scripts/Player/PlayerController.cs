@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour,IDamageable
         CurrentHp = maxHp;
         IsDead = false;
     }
+    
 
     void Update()
     {
