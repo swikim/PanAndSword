@@ -15,6 +15,7 @@ public class Skill : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
 
     private WeaponSwitcher weaponSwitcher;
+    [SerializeField] private DashHitBox dashHitBoxPrefab;
     private PlayerController playerController;
     private Animator animator;
     private Rigidbody rb;
@@ -25,6 +26,7 @@ public class Skill : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         animator = GetComponentInChildren<Animator>();  
         rb = GetComponent<Rigidbody>();
+        dashHitBoxPrefab.Deactivate();
     }
 
     void Update()
@@ -85,6 +87,7 @@ public class Skill : MonoBehaviour
         playerController.isDashing = true;
 
         Vector3 dashDirection = transform.forward;
+        dashHitBoxPrefab.Activate(dashDamage);
 
         float elapsed = 0f;
 
@@ -97,14 +100,6 @@ public class Skill : MonoBehaviour
 
         playerController.isDashing = false;
 
-        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, 1.5f, enemyLayer);
-
-        foreach(Collider col in hitEnemies)
-        {
-            if(col.TryGetComponent<IDamageable>(out var target))
-            {
-                target.TakeDamage(dashDamage);
-            }
-        }
+        dashHitBoxPrefab.Deactivate();
     }
 }
