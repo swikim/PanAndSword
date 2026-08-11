@@ -26,25 +26,7 @@ public class IngredientManager : MonoBehaviour
     }
     public void AddIngredient(IngredientData data)
     {
-        switch (data.type)
-        {
-            case IngredientType.Meat:
-                GameData.ingredientData.meatCount++;
-                break;
-            case IngredientType.Vegetable:
-                GameData.ingredientData.vegetableCount++;
-                break;
-            case IngredientType.Spice:
-                GameData.ingredientData.spiceCount++;
-                break;
-        }
-        int currentCount = data.type switch
-        {
-            IngredientType.Meat      => GameData.ingredientData.meatCount,
-            IngredientType.Vegetable => GameData.ingredientData.vegetableCount,
-            IngredientType.Spice     => GameData.ingredientData.spiceCount,
-            _                        => 0
-        };
+        
         if(currentRunCollected.ContainsKey(data))
         {
             currentRunCollected[data]++;
@@ -53,15 +35,26 @@ public class IngredientManager : MonoBehaviour
         {
             currentRunCollected[data] = 1;
         }
-
-        Debug.Log($"[Manager] {data.type} {currentCount}/{UpgradeThreshold}");
-        
-        if(GameData.ingredientData.meatCount >= UpgradeThreshold)
-        {
-            Debug.Log("레시피를 사용할 수 있습니다.");
-            //레시피 데이터에 bool 값을 하나 넣어서 사용 가능한지 체크
-        }
     }    
+    public void CommitRunToPermanentData()
+    {
+        foreach(var pair in currentRunCollected)
+        {
+            switch (pair.Key.type)
+            {
+                case IngredientType.Meat:
+                    GameData.ingredientData.meatCount += pair.Value;
+                    break;
+                case IngredientType.Vegetable:
+                    GameData.ingredientData.vegetableCount += pair.Value;
+                    break;
+                case IngredientType.Spice:
+                    GameData.ingredientData.spiceCount += pair.Value;
+                    break;
+            }
+        }
+        SaveManager.Instance.SaveGameData(); // 파일로도 확정 저장
+    }
     public void ResetRunCollected()
     {
         currentRunCollected.Clear();

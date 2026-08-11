@@ -118,12 +118,14 @@ public class RoomManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         float totalTime = Time.time - gameStartTime;
+        IngredientManager.Instance.CommitRunToPermanentData();
         DungeonResultUI.Instance.ShowResultPanel(totalTime,true);
     }
     public void TriggerGameOver()
     {
         Time.timeScale = 0f;
         float totalTime = Time.time - gameStartTime;
+        IngredientManager.Instance.CommitRunToPermanentData();
         DungeonResultUI.Instance.ShowResultPanel(totalTime,false);
     }
 

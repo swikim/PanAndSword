@@ -29,15 +29,15 @@ public class DungeonResultUI : MonoBehaviour
         int seconds = Mathf.FloorToInt(totalPlayTime % 60f);
         string formattedTime = $"{minutes:D2}:{seconds:D2}";
         Debug.Log($"총 플레이 시간: {formattedTime}");
-        resultTimeText.text = formattedTime;
+        resultTimeText.text =$"Total Play Time: {formattedTime}";
 
-        resultGameText.text = isVictory ? "Dungeon Clear!" : "Game Over!";
-        
+        resultGameText.text = isVictory ? "Clear!" : "Game Over!";
+
         foreach(Transform item in slotContainer)
         {
             Destroy(item.gameObject);
         }
-        Dictionary<IngredientData,int> ingredients = IngredientManager.Instance.currentRunCollected;
+        Dictionary<IngredientData,int> ingredients = IngredientManager.Instance.GetCurrentRunCollected(); 
         foreach(var data in ingredients)
         {
             
