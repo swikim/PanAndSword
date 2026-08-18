@@ -58,9 +58,14 @@ public class IngredientManager : MonoBehaviour
     public void ResetRunCollected()
     {
         currentRunCollected.Clear();
+        Debug.Log("currentRunCollected has been reset.");
     }
     public Dictionary<IngredientData, int> GetCurrentRunCollected()
     {
+        if(currentRunCollected == null || currentRunCollected.Count == 0)
+        {
+            return new Dictionary<IngredientData, int>();
+        }
         return currentRunCollected;
     }
     public void ApplyUpgrade(RecipeData recipeData)

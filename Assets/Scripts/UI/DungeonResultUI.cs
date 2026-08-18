@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class DungeonResultUI : MonoBehaviour
     [SerializeField]private GameObject slotPrefab;
     [SerializeField]private Transform slotContainer;
     [SerializeField]private TextMeshProUGUI resultTimeText;
+    [SerializeField]private GameObject noIngredients;
 
     void Awake()
     {
@@ -38,12 +40,19 @@ public class DungeonResultUI : MonoBehaviour
             Destroy(item.gameObject);
         }
         Dictionary<IngredientData,int> ingredients = IngredientManager.Instance.GetCurrentRunCollected(); 
-        foreach(var data in ingredients)
+        if(ingredients == null || ingredients.Count == 0)
         {
-            
-            GameObject slot = Instantiate(slotPrefab, slotContainer);
-            var slotUI = slot.GetComponent<IngredientSlotUI>();
-            slotUI.SetIngredientData(data.Key, data.Value);
+            noIngredients.SetActive(true);
+        }
+        else
+        {
+            noIngredients.SetActive(false);
+            foreach(var data in ingredients)
+            {
+                GameObject slot = Instantiate(slotPrefab, slotContainer);
+                var slotUI = slot.GetComponent<IngredientSlotUI>();
+                slotUI.SetIngredientData(data.Key, data.Value);
+            }
         }
     }
 }
