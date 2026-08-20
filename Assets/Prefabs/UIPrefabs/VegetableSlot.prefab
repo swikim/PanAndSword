@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8367610138244571969}
   - component: {fileID: 8349526927393257429}
   m_Layer: 5
-  m_Name: MeatSlot
+  m_Name: VegetableSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,8 +158,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0761edf32a3204303a4c24251cff96e5, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: -1641216994, guid: 886ce9e9eb4e94fae99193f2e67255be, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x0
+  m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

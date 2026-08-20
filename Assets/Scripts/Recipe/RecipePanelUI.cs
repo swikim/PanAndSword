@@ -100,6 +100,7 @@ public class RecipePanelUI : MonoBehaviour
         foreach(RecipeCardUI card in recipeCardUIs)
         {
             RecipeData RD = card.recipeData;
+            Debug.Log($"카드 이름: {RD.name}, 재료 개수: {RD.requirements.Count}"); // RD.name 추가
             card.nameText.text = RD.recipeName;
             for(int i = 0; i < card.slotUIList.Count; i++)
             {
@@ -107,7 +108,6 @@ public class RecipePanelUI : MonoBehaviour
                 {
                     card.slotUIList[i].countText.text = RD.requirements[i].count.ToString();
                     card.slotUIList[i].icon.sprite = RD.requirements[i].ingredientData.sprite;
-                    Debug.Log($"{card.recipeData.recipeName} - 슬롯{i}: sprite = {RD.requirements[i].ingredientData.sprite}");
                     card.slotUIList[i].slotRoot.SetActive(true);
                 }
                 else

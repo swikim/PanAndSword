@@ -79,6 +79,7 @@ public class IngredientManager : MonoBehaviour
     }
     public Dictionary<IngredientType, int> GetCounts()
     {
+        Debug.Log("GameData.ingredientData is null? " + (GameData.ingredientData.meatCount));
         return new Dictionary<IngredientType, int>
         {
             { IngredientType.Meat, GameData.ingredientData.meatCount},

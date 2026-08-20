@@ -36,7 +36,7 @@ public class PauseUI : MonoBehaviour
     public void ShowSettingsPanel()
     {
         pausePanel.SetActive(false);
-        //SettingUI.Instance.ShowSettingsPanel();
+        SettingUI.Instance.ShowSettingsPanel();
         //SettingUI 끌 때 개임 재개 해야함
     }
 
