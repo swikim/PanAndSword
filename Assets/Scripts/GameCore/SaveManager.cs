@@ -30,6 +30,7 @@ public class SaveManager : MonoBehaviour
         saveData.playerStatus = GameData.playerStatus;
         saveData.ingredientData = GameData.ingredientData; 
         saveData.cookData = GameData.cookData;
+        saveData.adsRemoved = GameData.adsRemoved;
 
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(saveFilePath, json);
@@ -45,6 +46,7 @@ public class SaveManager : MonoBehaviour
             GameData.playerStatus = saveData.playerStatus;
             GameData.ingredientData = saveData.ingredientData;
             GameData.cookData = saveData.cookData;
+            GameData.adsRemoved = saveData.adsRemoved;
 
             Debug.Log($"Game data loaded from {saveFilePath}");
         }

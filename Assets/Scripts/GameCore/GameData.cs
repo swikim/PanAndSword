@@ -31,11 +31,12 @@ public class SaveData
     public PlayerStatus playerStatus;
     public IngredientSaveData ingredientData;
     public CookedFoodData cookData;
+    public bool adsRemoved;
 }
 public static class GameData 
 {
     public static PlayerStatus playerStatus = new PlayerStatus();
     public static IngredientSaveData ingredientData = new IngredientSaveData();
     public static CookedFoodData cookData = new CookedFoodData();
-    
+    public static bool adsRemoved = false;
 }

@@ -26,13 +26,20 @@ public class GameManager : MonoBehaviour
     }
     public void RestartDungeon()
     {
-        SetTimeScale(1f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        AdManager.Instance.TryShowInterstitialAd(() =>
+        {
+            SetTimeScale(1f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        });
+        
     }
 
     public void GoToLobby()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Lobby");
+        AdManager.Instance.TryShowInterstitialAd(() =>
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Lobby");
+        });
     }
 }
