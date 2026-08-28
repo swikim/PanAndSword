@@ -29,6 +29,7 @@ public class IAPManager : MonoBehaviour
         // 이벤트 핸들러 등록 
         storeController.OnPurchasePending += OnPurchasePending;
         storeController.OnPurchaseFailed += OnPurchaseFailed;
+        storeController.OnPurchaseDeferred  += OnPurchaseDeferred;
         storeController.OnProductsFetched += OnProductsFetched;
         storeController.OnPurchasesFetched += OnPurchasesFetched;
 
@@ -65,7 +66,11 @@ public class IAPManager : MonoBehaviour
             }
         }
     }
-
+    void OnPurchaseDeferred(DeferredOrder order)
+    {
+        Debug.Log("구매가 승인 대기 중입니다");
+    }
+    
     // 새로운 구매가 진행 중일 때 (구매 버튼 눌렀을 때)
     void OnPurchasePending(PendingOrder order)
     {
