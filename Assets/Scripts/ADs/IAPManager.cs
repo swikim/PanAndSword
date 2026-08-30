@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -10,6 +11,7 @@ public class IAPManager : MonoBehaviour
 
     private StoreController storeController;
 
+    public event Action OnPurchaseCompleted;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -80,6 +82,7 @@ public class IAPManager : MonoBehaviour
             {
                 GameData.adsRemoved = true;
                 SaveManager.Instance.SaveGameData();
+                OnPurchaseCompleted?.Invoke();
                 Debug.Log("광고 제거 구매 완료");
             }
         }

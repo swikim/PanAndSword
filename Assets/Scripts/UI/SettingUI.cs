@@ -8,9 +8,6 @@ public class SettingUI : MonoBehaviour
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private Slider volumeSlider;
     [SerializeField] private Slider soundEffectSlider;
-
-    [SerializeField] private Button removeAdsTestButton;
-
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -26,8 +23,6 @@ public class SettingUI : MonoBehaviour
     {
         volumeSlider.value = AudioListener.volume;
         volumeSlider.onValueChanged.AddListener(SetVolume);
-
-        removeAdsTestButton.onClick.AddListener(OnRemoveAdsButtonClicked);
     }
 
     public void ShowSettingsPanel()
@@ -50,8 +45,5 @@ public class SettingUI : MonoBehaviour
         // sound effect volume 조절 로직 구현 필요
     }
 
-    void OnRemoveAdsButtonClicked()
-    {
-        IAPManager.Instance.PurchaseRemoveAds();
-    }
+    
 }

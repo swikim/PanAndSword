@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class EnemyDetector : MonoBehaviour
@@ -15,7 +16,7 @@ public class EnemyDetector : MonoBehaviour
     
     
 
-    private Transform currentTarget;
+    public Transform currentTarget;
     private WeaponSwitcher weaponSwitcher;
     private PlayerController playerController;
     [SerializeField] private HitEffectPool hitEffectPool;
@@ -48,6 +49,10 @@ public class EnemyDetector : MonoBehaviour
         }
         
         currentTarget = nearest;
+    }
+    public bool HasTarget()
+    {
+        return currentTarget != null;
     }
 
     void OnDrawGizmos()

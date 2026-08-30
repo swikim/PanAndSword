@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 
 
@@ -31,6 +32,9 @@ public class LobyManager : MonoBehaviour
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private GameObject recipePanel;
 
+    [Header("광고제거")]
+    [SerializeField] private Button removeAdsButton;
+
     void Start()
     {
         UpdateUI();
@@ -40,6 +44,10 @@ public class LobyManager : MonoBehaviour
         recipeButton.onClick.AddListener(OnRecipeButton);
         upgradeBackButton.onClick.AddListener(() => upgradePanel.SetActive(false));
         recipeBackButton.onClick.AddListener(() => recipePanel.SetActive(false));
+        removeAdsButton.onClick.AddListener(OnRemoveAdsButtonClicked);
+
+        IAPManager.Instance.OnPurchaseCompleted += UpdateRemoveAdsButtonVisibility;
+        UpdateRemoveAdsButtonVisibility(); 
     }
 
     void UpdateUI()
@@ -63,5 +71,27 @@ public class LobyManager : MonoBehaviour
     void OnUpgradeButton()
     {
         upgradePanel.SetActive(true);
+    }
+    void OnRemoveAdsButtonClicked()
+    {
+        IAPManager.Instance.PurchaseRemoveAds();
+    }
+    void OnDestroy()
+    {
+        if (IAPManager.Instance != null)
+        {
+            IAPManager.Instance.OnPurchaseCompleted -= UpdateRemoveAdsButtonVisibility;
+        }
+    }
+    void UpdateRemoveAdsButtonVisibility()
+    {
+        if (IAPManager.Instance.IsAdsRemoved())
+        {
+            removeAdsButton.gameObject.SetActive(false); // 이미 구매했으면 숨기기
+        }
+        else
+        {
+            removeAdsButton.gameObject.SetActive(true);
+        }
     }
 }

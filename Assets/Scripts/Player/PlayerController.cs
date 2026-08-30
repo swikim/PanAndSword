@@ -28,11 +28,14 @@ public class PlayerController : MonoBehaviour,IDamageable
     public event Action<float, float> OnHealthChanged; // current, max
     public event Action OnPlayerDied;
     
+    private EnemyDetector enemyDetector;
     
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        enemyDetector = GetComponent<EnemyDetector>();
         rb = GetComponent<Rigidbody>();
+        
         attackDamage = GameData.playerStatus.attackDamage;
         maxHp = GameData.playerStatus.maxHp;
         CurrentHp = maxHp;
@@ -80,9 +83,12 @@ public class PlayerController : MonoBehaviour,IDamageable
         bool isMoving = moveDirection.magnitude > 0.1f;
         animator.SetBool(AnimParam.IsMoving.ToString(), isMoving);
 
-        if (isMoving)
+        if (enemyDetector.HasTarget())
         {
-            // 이동 방향으로 회전
+            HeadToTarget(enemyDetector.currentTarget);
+        }
+        else if (isMoving)
+        {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
@@ -97,6 +103,10 @@ public class PlayerController : MonoBehaviour,IDamageable
         }
         else
             animator.SetTrigger("SwordAttack");
+    }
+    public void SwitchWeapon()
+    {
+        animator.SetTrigger("SwitchWeapon");
     }
     public void TriggerAnimation(string triggerName)
     {
@@ -148,5 +158,16 @@ public class PlayerController : MonoBehaviour,IDamageable
     public void TeleportToNextStage(Vector3 nextStagePos)
     {
         transform.position = nextStagePos;
+    }
+    void HeadToTarget(Transform target)
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        direction.y = 0f;
+
+        if(direction != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation,targetRotation,rotationSpeed * Time.deltaTime);
+        }
     }
 }

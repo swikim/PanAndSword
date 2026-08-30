@@ -21,6 +21,7 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
+        if (Instance != this) return;
         PlayBGM(lobbyBGM);
     }
     public void PlayBGM(AudioClip clip)

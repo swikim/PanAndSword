@@ -57,7 +57,7 @@ public class WeaponSwitcher : MonoBehaviour
             enemyDetector.attackInterval = 1f;
         }
 
-        playerController.TriggerAnimation("SwitchWeapon");
+        playerController.SwitchWeapon();
         Debug.Log("현재 무기: " + currentWeapon);
     }
 
