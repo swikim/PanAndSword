@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class Stage
@@ -120,6 +121,7 @@ public class RoomManager : MonoBehaviour
         float totalTime = Time.time - gameStartTime;
         IngredientManager.Instance.CommitRunToPermanentData();
         DungeonResultUI.Instance.ShowResultPanel(totalTime,true);
+        SoundManager.Instance.PlayDungeonClear();
     }
     public void TriggerGameOver()
     {
@@ -127,6 +129,7 @@ public class RoomManager : MonoBehaviour
         float totalTime = Time.time - gameStartTime;
         IngredientManager.Instance.CommitRunToPermanentData();
         DungeonResultUI.Instance.ShowResultPanel(totalTime,false);
+        SoundManager.Instance.PlayGameOver();
     }
 
     void OnDestroy()

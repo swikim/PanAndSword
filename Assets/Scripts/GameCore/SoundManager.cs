@@ -1,22 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
     public static  SoundManager Instance { get; private set;}
+    [Header("BGM")]
     [SerializeField]private AudioSource bgmSource;
     [SerializeField]private AudioClip lobbyBGM;
+
+    [Header("SFX")]
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip hitSfx;
+    [SerializeField] private AudioClip touchSfx;
+    [SerializeField] private AudioClip materialGetSfx;
+    [SerializeField] private AudioClip dungeonClearSfx;
+    [SerializeField] private AudioClip gameoverSfx;
 
     void Awake()
     {
         if(Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
+        
     }
 
     void Start()
@@ -29,5 +37,27 @@ public class SoundManager : MonoBehaviour
         bgmSource.clip = clip;
         bgmSource.loop = true;
         bgmSource.Play();
+    }
+    public void PlayHit()
+    {
+        sfxSource.PlayOneShot(hitSfx);
+    }
+
+    public void PlayMaterialGet()
+    {
+        sfxSource.PlayOneShot(materialGetSfx);
+    }
+
+    public void PlayDungeonClear()
+    {
+        sfxSource.PlayOneShot(dungeonClearSfx);
+    }
+    public void PlayTouchSfx()
+    {
+        sfxSource.PlayOneShot(touchSfx);
+    }
+    public void PlayGameOver()
+    {
+        sfxSource.PlayOneShot(gameoverSfx);
     }
 }

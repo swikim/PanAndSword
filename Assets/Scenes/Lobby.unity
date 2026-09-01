@@ -717,6 +717,7 @@ GameObject:
   - component: {fileID: 161892966}
   - component: {fileID: 161892965}
   - component: {fileID: 161892964}
+  - component: {fileID: 161892967}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -825,6 +826,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161892962}
   m_CullTransparentMesh: 1
+--- !u!114 &161892967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161892962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &174545025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1527,6 +1540,7 @@ GameObject:
   - component: {fileID: 224468095}
   - component: {fileID: 224468094}
   - component: {fileID: 224468096}
+  - component: {fileID: 224468097}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -1548,6 +1562,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 224468096}
   lobbyBGM: {fileID: 8300000, guid: 01b0e0369b9d548bdb5bf561d71e5eb5, type: 3}
+  sfxSource: {fileID: 224468097}
+  hitSfx: {fileID: 8300000, guid: b156000e2f5c249498c4e1eb6b6c3a02, type: 3}
+  touchSfx: {fileID: 8300000, guid: de1b75f1e63474ca583726f330626357, type: 3}
+  materialGetSfx: {fileID: 0}
+  dungeonClearSfx: {fileID: 8300000, guid: 38b8a5304bfd9415d87963c3166315b8, type: 3}
+  gameoverSfx: {fileID: 8300000, guid: 193e2bd9b3013471fba48b9e048cdfb4, type: 3}
 --- !u!4 &224468095
 Transform:
   m_ObjectHideFlags: 0
@@ -1574,6 +1594,102 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 01b0e0369b9d548bdb5bf561d71e5eb5, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &224468097
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224468093}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3412,6 +3528,7 @@ GameObject:
   - component: {fileID: 375169101}
   - component: {fileID: 375169100}
   - component: {fileID: 375169103}
+  - component: {fileID: 375169104}
   m_Layer: 5
   m_Name: EatButton
   m_TagString: Untagged
@@ -3536,6 +3653,18 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0.6, b: 0.26666668, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &375169104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375169098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &387097849
 GameObject:
   m_ObjectHideFlags: 0
@@ -3853,6 +3982,7 @@ GameObject:
   - component: {fileID: 426280815}
   - component: {fileID: 426280814}
   - component: {fileID: 426280813}
+  - component: {fileID: 426280817}
   m_Layer: 5
   m_Name: CookButton
   m_TagString: Untagged
@@ -3977,6 +4107,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426280811}
   m_CullTransparentMesh: 1
+--- !u!114 &426280817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426280811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &429775847
 GameObject:
   m_ObjectHideFlags: 0
@@ -4065,6 +4207,7 @@ GameObject:
   - component: {fileID: 436095720}
   - component: {fileID: 436095719}
   - component: {fileID: 436095722}
+  - component: {fileID: 436095723}
   m_Layer: 5
   m_Name: EatButton
   m_TagString: Untagged
@@ -4189,6 +4332,18 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0.6, b: 0.26666668, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &436095723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436095717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &438230603
 GameObject:
   m_ObjectHideFlags: 0
@@ -4451,6 +4606,7 @@ GameObject:
   - component: {fileID: 451280179}
   - component: {fileID: 451280178}
   - component: {fileID: 451280177}
+  - component: {fileID: 451280181}
   m_Layer: 5
   m_Name: UpgradeButton
   m_TagString: Untagged
@@ -4575,6 +4731,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 451280175}
   m_CullTransparentMesh: 1
+--- !u!114 &451280181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451280175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &451639958
 GameObject:
   m_ObjectHideFlags: 0
@@ -4904,6 +5072,7 @@ GameObject:
   - component: {fileID: 476381686}
   - component: {fileID: 476381685}
   - component: {fileID: 476381688}
+  - component: {fileID: 476381689}
   m_Layer: 5
   m_Name: EatButton
   m_TagString: Untagged
@@ -5028,6 +5197,18 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0.6, b: 0.26666668, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &476381689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476381683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &486600408
 GameObject:
   m_ObjectHideFlags: 0
@@ -5322,7 +5503,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -12.6}
+  m_AnchoredPosition: {x: 50, y: -17}
   m_SizeDelta: {x: 120, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &520459855
@@ -6122,7 +6303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &616421436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6918,6 +7099,7 @@ GameObject:
   - component: {fileID: 669621592}
   - component: {fileID: 669621591}
   - component: {fileID: 669621590}
+  - component: {fileID: 669621594}
   m_Layer: 5
   m_Name: CookButton
   m_TagString: Untagged
@@ -7042,6 +7224,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669621588}
   m_CullTransparentMesh: 1
+--- !u!114 &669621594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669621588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &670201337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8063,6 +8257,7 @@ GameObject:
   - component: {fileID: 956671489}
   - component: {fileID: 956671488}
   - component: {fileID: 956671491}
+  - component: {fileID: 956671492}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -8187,6 +8382,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &956671492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956671486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &962113817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8312,6 +8519,7 @@ GameObject:
   - component: {fileID: 970070072}
   - component: {fileID: 970070071}
   - component: {fileID: 970070070}
+  - component: {fileID: 970070073}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -8420,6 +8628,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970070068}
   m_CullTransparentMesh: 1
+--- !u!114 &970070073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970070068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &970875980 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2094270752468319400, guid: 6c83e7cf026f04e558352fbd4171a6c3, type: 3}
@@ -9131,7 +9351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1046628123
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10858,6 +11078,7 @@ GameObject:
   - component: {fileID: 1281737560}
   - component: {fileID: 1281737559}
   - component: {fileID: 1281737558}
+  - component: {fileID: 1281737561}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -10882,7 +11103,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -62.700005}
+  m_AnchoredPosition: {x: 50, y: -93.5}
   m_SizeDelta: {x: 80, y: 14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1281737558
@@ -10979,6 +11200,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1281737556}
   m_CullTransparentMesh: 1
+--- !u!114 &1281737561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281737556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1283081003
 GameObject:
   m_ObjectHideFlags: 0
@@ -11230,6 +11463,7 @@ GameObject:
   - component: {fileID: 1301770665}
   - component: {fileID: 1301770664}
   - component: {fileID: 1301770667}
+  - component: {fileID: 1301770668}
   m_Layer: 5
   m_Name: EatButton
   m_TagString: Untagged
@@ -11354,6 +11588,18 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0.6, b: 0.26666668, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &1301770668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301770662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1323874055
 GameObject:
   m_ObjectHideFlags: 0
@@ -11523,7 +11769,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -45.5}
+  m_AnchoredPosition: {x: 50, y: -67.5}
   m_SizeDelta: {x: 85, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1326084771
@@ -11952,7 +12198,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1353746063}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 224468094}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayTouchSfx
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1353746063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12616,6 +12874,7 @@ GameObject:
   - component: {fileID: 1631219781}
   - component: {fileID: 1631219780}
   - component: {fileID: 1631219783}
+  - component: {fileID: 1631219784}
   m_Layer: 5
   m_Name: EatButton
   m_TagString: Untagged
@@ -12740,6 +12999,18 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0.6, b: 0.26666668, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &1631219784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631219778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1657973024
 GameObject:
   m_ObjectHideFlags: 0
@@ -12830,6 +13101,7 @@ GameObject:
   - component: {fileID: 1658267607}
   - component: {fileID: 1658267606}
   - component: {fileID: 1658267605}
+  - component: {fileID: 1658267609}
   m_Layer: 5
   m_Name: CookButton
   m_TagString: Untagged
@@ -12954,6 +13226,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658267603}
   m_CullTransparentMesh: 1
+--- !u!114 &1658267609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658267603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1684920115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13079,6 +13363,7 @@ GameObject:
   - component: {fileID: 1689515254}
   - component: {fileID: 1689515253}
   - component: {fileID: 1689515252}
+  - component: {fileID: 1689515256}
   m_Layer: 0
   m_Name: RemoveAdsButton
   m_TagString: Untagged
@@ -13188,6 +13473,18 @@ RectTransform:
   m_AnchoredPosition: {x: 90, y: -330}
   m_SizeDelta: {x: 110, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1689515256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689515251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf287193792ab4e1b9d8d2e576297816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1715185023
 GameObject:
   m_ObjectHideFlags: 0
@@ -13300,7 +13597,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -30.300001}
+  m_AnchoredPosition: {x: 50, y: -43.5}
   m_SizeDelta: {x: 85, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1728431712
