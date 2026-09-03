@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour,IDamageable
         animator = GetComponent<Animator>();
         
         player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        EnemyRegistry.Instance.Register(this); 
         
         EnemyHpBarManager.Instance.CreateHPbar(this);
         OnHpChanged?.Invoke(currentHP,maxHP);
@@ -61,7 +63,7 @@ public class Enemy : MonoBehaviour,IDamageable
         {
             attackPattern.Execute(player, this);
             lastAttackTime = Time.time;
-            animator.SetTrigger(AnimParam.Attack.ToString());
+            animator.SetTrigger(AnimHash.Attack);
         }
     }
     protected virtual void ChasePlayer()
@@ -76,7 +78,7 @@ public class Enemy : MonoBehaviour,IDamageable
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);            
         }
-        animator.SetBool(AnimParam.IsMoving.ToString(), isMoving);
+        animator.SetBool(AnimHash.IsMoving, isMoving);
     }
     
 
@@ -84,7 +86,8 @@ public class Enemy : MonoBehaviour,IDamageable
     {
         currentHP -= damage;
         OnHpChanged?.Invoke(currentHP,enemyData.maxHP);
-        animator.SetTrigger(AnimParam.Damaged.ToString());
+        animator.SetTrigger(AnimHash.Damaged);
+        SoundManager.Instance.PlayHit();
         if(currentHP <= 0)
         {
             Die();
@@ -92,7 +95,9 @@ public class Enemy : MonoBehaviour,IDamageable
     }
     protected virtual void Die()
     {
-        animator.SetTrigger(AnimParam.Death.ToString());
+        EnemyRegistry.Instance.Unregister(this); 
+
+        animator.SetTrigger(AnimHash.Death);
         Debug.Log(gameObject.name + " 사망!");
         TryDrop();
         Destroy(gameObject);

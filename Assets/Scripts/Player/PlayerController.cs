@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour,IDamageable
         moveDirection = new Vector3(h, 0f, v).normalized;
 
         bool isMoving = moveDirection.magnitude > 0.1f;
-        animator.SetBool(AnimParam.IsMoving.ToString(), isMoving);
+        animator.SetBool(AnimHash.IsMoving, isMoving);
 
         if (isMoving)
         {
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour,IDamageable
 
 
         bool isMoving = moveDirection.magnitude > 0.1f;
-        animator.SetBool(AnimParam.IsMoving.ToString(), isMoving);
+        animator.SetBool(AnimHash.IsMoving, isMoving);
 
         if (enemyDetector.HasTarget())
         {
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour,IDamageable
         if (IsDead) return;
         if(type == WeaponType.Pan)
         {
-            animator.SetTrigger(AnimParam.Attack.ToString());
+            animator.SetTrigger(AnimHash.Attack);
         }
         else
             animator.SetTrigger("SwordAttack");
@@ -119,6 +119,7 @@ public class PlayerController : MonoBehaviour,IDamageable
         CurrentHp = Mathf.Max(0f, CurrentHp - damage);
         OnHealthChanged?.Invoke(CurrentHp, maxHp);
         Debug.Log(CurrentHp+"  "+ maxHp);
+        SoundManager.Instance.PlayHit();
 
         if(CurrentHp <= 0)
         {
@@ -135,14 +136,14 @@ public class PlayerController : MonoBehaviour,IDamageable
             return;
         }
         IsDead = true;
-        TriggerAnimation(AnimParam.Death.ToString());
+        animator.SetTrigger(AnimHash.Death);
         OnPlayerDied?.Invoke();
     }
 
     private IEnumerator ReviveRoutine()
     {
         IsDead = true;
-        TriggerAnimation(AnimParam.Death.ToString());
+        animator.SetTrigger(AnimHash.Death);
         
         yield return new WaitForSeconds(1.5f); 
         

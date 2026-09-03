@@ -32,18 +32,16 @@ public class EnemyDetector : MonoBehaviour
 
     void FindNearestEnemy()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
         Transform nearest = null;
-        float minDistance = detectRange;
+        float minSqrDistance = detectRange * detectRange;
 
-        foreach(GameObject enemy in enemies)
+        foreach (Enemy enemy in EnemyRegistry.Instance.ActiveEnemies)
         {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            float sqrDistance = (enemy.transform.position - transform.position).sqrMagnitude;
 
-            if(distance < minDistance)
+            if (sqrDistance < minSqrDistance)
             {
-                minDistance = distance;
+                minSqrDistance = sqrDistance;
                 nearest = enemy.transform;
             }
         }
