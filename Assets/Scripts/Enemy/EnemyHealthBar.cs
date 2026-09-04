@@ -18,6 +18,7 @@ public class EnemyHealthBar : MonoBehaviour
             return;
         }
         transform.position = targetTransform.position + worldOffset;
+        transform.rotation = Camera.main.transform.rotation;
     }
     public void Init(Enemy enemy)
     {

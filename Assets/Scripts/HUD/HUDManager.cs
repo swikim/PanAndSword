@@ -22,6 +22,10 @@ public class HUDManager : MonoBehaviour
         }
     }
 
+    void LateUpdate()
+    {
+        hpBar.transform.rotation = Camera.main.transform.rotation;
+    }
     void UpdateHpBar(float currentHp, float maxHp)
     {
         hpBar.value = currentHp/maxHp;
