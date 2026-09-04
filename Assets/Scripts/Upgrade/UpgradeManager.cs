@@ -42,7 +42,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
                 GameData.playerStatus.attackDamage += 10;
                 break;
             case SkillEffect.HealOnMove:
-                Debug.Log("재생력 ++ (추후 구현)");
+                GameData.playerStatus.autoHeal += 1;
                 break;
             case SkillEffect.Revive:
                 GameData.playerStatus.hasRevive = true;
