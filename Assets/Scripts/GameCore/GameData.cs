@@ -8,6 +8,7 @@ public class PlayerStatus
     public float maxHp;
     public float skillCooldown;
     public bool hasRevive = false;
+    public float autoHeal;
 }
 [System.Serializable]
 public class IngredientSaveData
