@@ -41,6 +41,10 @@ public class RoomController : MonoBehaviour
     public void ActivateRoom()
     {
         enemyContainer.gameObject.SetActive(true);
+        if (roomType == RoomType.Boss || roomType == RoomType.MiniBoss)
+        {
+            SoundManager.Instance.PlayBossBGM();
+        }
     }
 
     public void CloseDoor()
@@ -53,9 +57,15 @@ public class RoomController : MonoBehaviour
     void ClearRoom()
     {
         isCleared = true;
-        if(roomType == RoomType.Boss || roomType == RoomType.MiniBoss)
+        if(roomType == RoomType.Boss)
         {
             portalPrefab.SetActive(true);
+            SoundManager.Instance.PlayGameSceneBGM(); // 추후 승리 BGM 추가 예정
+        }
+        else if(roomType == RoomType.MiniBoss)
+        {
+            portalPrefab.SetActive(true);
+            SoundManager.Instance.PlayGameSceneBGM(); // 미니보스는 다시 일반 BGM
         }
         else
         {
