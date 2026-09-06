@@ -10,6 +10,7 @@ public enum WeaponType
 public class WeaponSwitcher : MonoBehaviour
 {
     PlayerController playerController;
+    [SerializeField] private SkillButtonUI skillButtonUI;
     private EnemyDetector enemyDetector;
     public GameObject panObject;
     public GameObject swordObject;
@@ -17,6 +18,7 @@ public class WeaponSwitcher : MonoBehaviour
     public WeaponType currentWeapon = WeaponType.Pan;
     [SerializeField] private float switchCooldown = 0.5f;
     private float lastSwitchTime = -999f;
+    
 
 
     void Start()
@@ -35,7 +37,7 @@ public class WeaponSwitcher : MonoBehaviour
         }
     }
 
-    void SwitchWeapon()
+    public void SwitchWeapon()
     {
         if(Time.time - lastSwitchTime < switchCooldown) return;
         lastSwitchTime = Time.time;
@@ -58,6 +60,7 @@ public class WeaponSwitcher : MonoBehaviour
         }
 
         playerController.SwitchWeapon();
+        skillButtonUI.SwichButtonImage(currentWeapon);
         Debug.Log("현재 무기: " + currentWeapon);
     }
 

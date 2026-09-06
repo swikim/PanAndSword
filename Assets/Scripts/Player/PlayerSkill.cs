@@ -37,7 +37,7 @@ public class Skill : MonoBehaviour
         }
     }
 
-    void TryUseSkill()
+    public void TryUseSkill()
     {
         if (playerController.IsDead) return;
         if(Time.time - lastSkillTime < skillCooldown)
@@ -101,5 +101,9 @@ public class Skill : MonoBehaviour
         playerController.isDashing = false;
 
         dashHitBoxPrefab.Deactivate();
+    }
+    public float GetCooldownRemaining()
+    {
+        return Mathf.Max(0f, skillCooldown - (Time.time - lastSkillTime));
     }
 }
