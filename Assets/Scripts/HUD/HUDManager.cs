@@ -21,6 +21,10 @@ public class HUDManager : MonoBehaviour
             Debug.LogWarning("player가 인스펙터에 할당 안 됨!");
         }
     }
+    void LateUpdate()
+    {
+        hpBar.transform.rotation = Camera.main.transform.rotation;
+    }
 
     void UpdateHpBar(float currentHp, float maxHp)
     {

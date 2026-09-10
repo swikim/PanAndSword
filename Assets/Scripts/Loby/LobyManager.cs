@@ -19,6 +19,7 @@ public class LobyManager : MonoBehaviour
     [SerializeField] private TMP_Text attackText;
     [SerializeField] private TMP_Text hpText;
     [SerializeField] private TMP_Text cooldownText;
+    [SerializeField] private TMP_Text autoHealText;
 
     [Header("버튼")]
     [SerializeField] private Button startButton;
@@ -48,6 +49,10 @@ public class LobyManager : MonoBehaviour
 
         IAPManager.Instance.OnPurchaseCompleted += UpdateRemoveAdsButtonVisibility;
         UpdateRemoveAdsButtonVisibility(); 
+        attackText.text = GameData.playerStatus.attackDamage.ToString();
+        hpText.text = GameData.playerStatus.maxHp.ToString();
+        cooldownText.text = GameData.playerStatus.skillCooldown.ToString("F1") + "s";
+        autoHealText.text = GameData.playerStatus.autoHeal.ToString() + "hp/s";
     }
 
     void UpdateUI()

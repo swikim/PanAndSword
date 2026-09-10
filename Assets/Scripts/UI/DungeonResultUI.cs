@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DungeonResultUI : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class DungeonResultUI : MonoBehaviour
     [SerializeField]private Transform slotContainer;
     [SerializeField]private TextMeshProUGUI resultTimeText;
     [SerializeField]private GameObject noIngredients;
+    [SerializeField]private Button backToLobbyButton;
 
     void Awake()
     {
@@ -54,5 +56,9 @@ public class DungeonResultUI : MonoBehaviour
                 slotUI.SetIngredientData(data.Key, data.Value);
             }
         }
+    }
+    public void BackToLobby()
+    {
+        GameManager.Instance.GoToLobby();
     }
 }

@@ -92,6 +92,7 @@ public class Boss : Enemy
         Debug.Log("Boss 사망!");
         enabled = false;
         TryDrop();
+        EnemyRegistry.Instance.Unregister(this); 
         
         extinguisherObject.SetActive(true);
         extinguisherObject.transform.position = gameObject.transform.position;

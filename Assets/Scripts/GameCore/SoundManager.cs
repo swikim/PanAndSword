@@ -6,6 +6,8 @@ public class SoundManager : MonoBehaviour
     [Header("BGM")]
     [SerializeField]private AudioSource bgmSource;
     [SerializeField]private AudioClip lobbyBGM;
+    [SerializeField] private AudioClip gameSceneBGM;
+    [SerializeField] private AudioClip bossBGM;
 
     [Header("SFX")]
     [SerializeField] private AudioSource sfxSource;
@@ -38,6 +40,8 @@ public class SoundManager : MonoBehaviour
         bgmSource.loop = true;
         bgmSource.Play();
     }
+    public void PlayGameSceneBGM() => PlayBGM(gameSceneBGM);
+    public void PlayBossBGM() => PlayBGM(bossBGM);
     public void PlayHit()
     {
         sfxSource.PlayOneShot(hitSfx);
@@ -60,4 +64,5 @@ public class SoundManager : MonoBehaviour
     {
         sfxSource.PlayOneShot(gameoverSfx);
     }
+    
 }
