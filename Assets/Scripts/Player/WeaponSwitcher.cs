@@ -60,7 +60,7 @@ public class WeaponSwitcher : MonoBehaviour
         }
 
         playerController.SwitchWeapon();
-        skillButtonUI.SwichButtonImage(currentWeapon);
+        //skillButtonUI.SwichButtonImage(currentWeapon);
         Debug.Log("현재 무기: " + currentWeapon);
     }
 

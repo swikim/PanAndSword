@@ -7,10 +7,9 @@ using UnityEngine.UI;
 public class SkillButtonUI : MonoBehaviour
 {
     [SerializeField] private Image cooldownOverlay;
-    [SerializeField] private Image oilSplashImage;
-    [SerializeField] private Image dashImage;
     [SerializeField] private TMP_Text cooldownText;
     [SerializeField] private Button skillButton;
+    [SerializeField] private Image skillButtonIcon;
     [SerializeField] private Button weaponSwitchButton;
     [SerializeField] private Skill skill;
     [SerializeField] private WeaponSwitcher weaponSwitcher;
@@ -18,30 +17,19 @@ public class SkillButtonUI : MonoBehaviour
     void Start()
     {
         skillButton.onClick.AddListener(() => skill.TryUseSkill());
+        skillButton.image.sprite = skill.GetCurrentSkillIcon();
         weaponSwitchButton.onClick.AddListener(() => weaponSwitcher.SwitchWeapon());
     }
 
     void Update()
     {
         float remaining = skill.GetCooldownRemaining();
-        float cooldown = skill.skillCooldown;
+        float progress = remaining / skill.GetMaxCooldown();
 
-        cooldownOverlay.fillAmount = remaining / cooldown;
+        cooldownOverlay.fillAmount = progress;
         cooldownOverlay.gameObject.SetActive(remaining > 0f);
         cooldownText.text = remaining > 0 ? remaining.ToString("F1") : "";
-    }
-    public void SwichButtonImage(WeaponType weaponType)
-    {
-        if(weaponType == WeaponType.Pan)
-        {
-            oilSplashImage.gameObject.SetActive(true);
-            dashImage.gameObject.SetActive(false);
-        }
-        else
-        {
-            oilSplashImage.gameObject.SetActive(false);
-            dashImage.gameObject.SetActive(true);
-        }
-    }
 
+        skillButtonIcon.sprite = skill.GetCurrentSkillIcon();
+    }
 }
