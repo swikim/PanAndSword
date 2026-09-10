@@ -2,15 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SkillSlot
+{
+    public WeaponType weaponType;
+    public float cooldown;
+    public float lastUsedTime = -999f;
+    public Sprite skillIcon;
+}
 public class Skill : MonoBehaviour
 {
-    public float skillCooldown = 8f;
-    private float lastSkillTime = -999f;
 
     public float dashSpeed = 15f;
     public float dashDuration = 0.2f;
     public int dashDamage = 25;
     public float oilSplashDamage;
+    [SerializeField] private List<SkillSlot> skillSlots;
 
     [SerializeField] private LayerMask enemyLayer;
 
@@ -27,6 +34,12 @@ public class Skill : MonoBehaviour
         animator = GetComponentInChildren<Animator>();  
         rb = GetComponent<Rigidbody>();
         dashHitBoxPrefab.Deactivate();
+
+        foreach(SkillSlot slot in skillSlots)
+        {
+            slot.lastUsedTime = -999f;
+            slot.cooldown = GameData.playerStatus.skillCooldown;
+        }
     }
 
     void Update()
@@ -36,18 +49,25 @@ public class Skill : MonoBehaviour
             TryUseSkill();
         }
     }
+    SkillSlot GetCurrentSkillSlot()
+    {
+        return skillSlots.Find(slot => slot.weaponType == weaponSwitcher.currentWeapon);
+    }
 
     void TryUseSkill()
     {
         if (playerController.IsDead) return;
-        if(Time.time - lastSkillTime < skillCooldown)
+        SkillSlot currentSlot = GetCurrentSkillSlot();
+        if (currentSlot == null) return;
+
+        if(Time.time - currentSlot.lastUsedTime < currentSlot.cooldown)
         {
-            float remaining = skillCooldown - (Time.time - lastSkillTime);
+            float remaining = currentSlot.cooldown - (Time.time - currentSlot.lastUsedTime);
             Debug.Log("스킬 쿨타임 남음: " + remaining.ToString("F1") + "초");
             return;
         }
         UseSkill();
-        lastSkillTime = Time.time;
+        currentSlot.lastUsedTime = Time.time;
     }
 
     void UseSkill()
@@ -101,5 +121,20 @@ public class Skill : MonoBehaviour
         playerController.isDashing = false;
 
         dashHitBoxPrefab.Deactivate();
+    }
+    public float GetCooldownRemaining()
+    {
+        SkillSlot slot = GetCurrentSkillSlot();
+        if (slot == null) return 0f;
+        return Mathf.Max(0f, slot.cooldown - (Time.time - slot.lastUsedTime));
+    }
+
+    public float GetMaxCooldown()
+    {
+        return GetCurrentSkillSlot()?.cooldown ?? 0f;
+    }
+    public Sprite GetCurrentSkillIcon()
+    {
+        return GetCurrentSkillSlot().skillIcon;
     }
 }
