@@ -24,7 +24,6 @@ public class EnemyHealthBar : MonoBehaviour
     {
         targetEnemy = enemy;
         targetTransform = enemy.transform;
-        Debug.Log(targetTransform.position);
         targetEnemy.OnHpChanged += UpdateHpBar;
     }
 

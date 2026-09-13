@@ -63,7 +63,6 @@ public class Skill : MonoBehaviour
         if(Time.time - currentSlot.lastUsedTime < currentSlot.cooldown)
         {
             float remaining = currentSlot.cooldown - (Time.time - currentSlot.lastUsedTime);
-            Debug.Log("스킬 쿨타임 남음: " + remaining.ToString("F1") + "초");
             return;
         }
         UseSkill();
@@ -97,7 +96,6 @@ public class Skill : MonoBehaviour
     }
     void SwordSlash()
     {
-        Debug.Log("⚔️ Dash Slash 발동! 돌진 베기");
         animator.SetTrigger("SwordSlash");
         StartCoroutine(DashRoutine());
     }

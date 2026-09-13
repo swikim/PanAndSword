@@ -105,7 +105,6 @@ public class EnemyDetector : MonoBehaviour
             playerController.PlayAttackAnimation(weaponSwitcher.currentWeapon);
             
             hitEffectPool.PlayHitEffect(target.transform.position + effectPositionOffset);
-            Debug.Log("Damage : " + damage);
         }
         
        

@@ -63,7 +63,6 @@ public class IngredientPool : MonoBehaviour
         obj.transform.position = position;
         obj.SetActive(true);
         
-        Debug.Log("GET ITEM");
         return obj;
     }
 

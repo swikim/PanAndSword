@@ -30,8 +30,16 @@ public class Enemy : MonoBehaviour,IDamageable
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         EnemyRegistry.Instance.Register(this); 
-        
-        EnemyHpBarManager.Instance.CreateHPbar(this);
+        if(enemyData.enemyType == EnemyType.Boss || enemyData.enemyType == EnemyType.MiniBoss)
+        {
+            EnemyHpBarManager.Instance.CreateBossHPbar(this);
+            Debug.Log("보스 체력바 생성");
+        }
+        else
+        {
+            EnemyHpBarManager.Instance.CreateHPbar(this);
+            Debug.Log("NOrmal 체력바 생성");
+        }
         OnHpChanged?.Invoke(currentHP,maxHP);
 
         PlayerController playerController  = player.GetComponent<PlayerController>();
@@ -98,7 +106,6 @@ public class Enemy : MonoBehaviour,IDamageable
         EnemyRegistry.Instance.Unregister(this); 
 
         animator.SetTrigger(AnimHash.Death);
-        Debug.Log(gameObject.name + " 사망!");
         TryDrop();
         Destroy(gameObject);
     }
@@ -109,7 +116,6 @@ public class Enemy : MonoBehaviour,IDamageable
             if(Random.value <= data.dropRate)
             {
                 IngredientPool.Instance.Get(data,transform.position);
-                Debug.Log(data.name);
             }
         }
     }

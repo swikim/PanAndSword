@@ -118,7 +118,6 @@ public class PlayerController : MonoBehaviour,IDamageable
 
         CurrentHp = Mathf.Max(0f, CurrentHp - damage);
         OnHealthChanged?.Invoke(CurrentHp, maxHp);
-        Debug.Log(CurrentHp+"  "+ maxHp);
         SoundManager.Instance.PlayHit();
 
         if(CurrentHp <= 0)

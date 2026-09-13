@@ -8,30 +8,27 @@ public class BossHealthBar : MonoBehaviour
 {
     [SerializeField]private Slider hpBar;
     private Image fillImage;
-    private Boss boss;
+    private Enemy targetEnemy;
     void Awake()
     {
-        boss = GetComponent<Boss>();
         fillImage = hpBar.fillRect.GetComponent<Image>(); 
     }
-    void Start()
+    public void Init(Enemy enemy)
     {
-        if (boss != null)
-        {
-            boss.OnHpChanged += UpdateHpBar;
-            UpdateHpBar(boss.CurrentHP, boss.maxHP);
-        }
-    }  
-    private void UpdateHpBar(float currentHp, float maxHp)
+        targetEnemy = enemy;
+        targetEnemy.OnHpChanged += UpdateHpBar;
+        UpdateHpBar(enemy.CurrentHP, enemy.maxHP);
+    }
+    public void UpdateHpBar(float currentHp, float maxHp)
     {
         hpBar.value = currentHp / maxHp;
         fillImage.color = currentHp <= maxHp * 0.5f ? Color.red : Color.green;
     }
     void OnDestroy()
     {
-        if(boss != null)
+        if(targetEnemy != null)
         {
-            boss.OnHpChanged -= UpdateHpBar;
+            targetEnemy.OnHpChanged -= UpdateHpBar;
         }
     }
 }

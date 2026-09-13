@@ -67,7 +67,6 @@ public class IngredientItem : MonoBehaviour
         if(!other.CompareTag("Player")) return;
 
         IngredientManager.Instance.AddIngredient(ingredientData);
-        Debug.Log($"[Item] {ingredientData.ingredientName} 수집");
 
         IngredientPool.Instance.Return(gameObject);
     }

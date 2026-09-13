@@ -61,8 +61,6 @@ public class RoomManager : MonoBehaviour
             //UnsubscribeAll(); 
             return; 
         }
-
-        Debug.Log($"[RoomManager] {clearedRoom.name} 클리어 ({clearedRoomCount}/{stages[clearedStageCount].rooms.Count})");
     }
    
     

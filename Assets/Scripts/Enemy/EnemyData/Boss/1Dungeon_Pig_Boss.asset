@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 023beb568668e46c7bd2ae0e64be0510, type: 3}
   m_Name: 1Dungeon_Pig_Boss
   m_EditorClassIdentifier: 
+  enemyType: 1
   enemyName: 1Dungeon_Pig_Boss
   maxHP: 750
   moveSpeed: 2

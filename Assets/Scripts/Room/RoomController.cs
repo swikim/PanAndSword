@@ -70,7 +70,6 @@ public class RoomController : MonoBehaviour
         else
         {
             doorObject.SetActive(false);
-            Debug.Log(gameObject.name + " 클리어! 문이 열렸습니다.");
             rightDoorObject.transform.rotation = Quaternion.Euler(0, 90, 0);
             leftDoorObject.transform.rotation = Quaternion.Euler(0, -90, 0);
         }
